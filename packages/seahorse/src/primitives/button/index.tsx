@@ -170,6 +170,14 @@ const buttonIconSizeMap: Record<ButtonSize, string> = {
   xl: 'h-5 w-5',
 }
 
+const buttonIconNumericSizeMap: Record<ButtonSize, number> = {
+  xs: 14,
+  sm: 16,
+  md: 18,
+  lg: 18,
+  xl: 20,
+}
+
 const buttonIconCompound = (
   action: ButtonAction,
   variant: ButtonVariant,
@@ -326,10 +334,15 @@ const ButtonIcon = React.forwardRef<any, ButtonIconProps>(
       )
     }
 
+    const numericSize = typeof sizeProp === 'string'
+      ? buttonIconNumericSizeMap[sizeProp]
+      : buttonIconNumericSizeMap[parentSize]
+
     return (
       <Icon
         ref={ref}
         {...props}
+        size={numericSize}
         className={cn(
           buttonIconBase,
           action !== 'default' && buttonIconActionMap[action],

@@ -40,6 +40,12 @@ const iconSizeClasses: Record<BadgeSize, string> = {
   lg: 'h-4 w-4',
 }
 
+const iconNumericSizeMap: Record<BadgeSize, number> = {
+  sm: 12,
+  md: 14,
+  lg: 16,
+}
+
 type BadgeProps = React.ComponentPropsWithoutRef<typeof View> & {
   className?: string
   action?: BadgeAction
@@ -112,7 +118,9 @@ const BadgeIcon = React.forwardRef<unknown, BadgeIconProps>(
     const resolvedSize =
       typeof sizeProp === 'number'
         ? sizeProp
-        : undefined
+        : typeof sizeProp === 'string'
+          ? iconNumericSizeMap[sizeProp as BadgeSize]
+          : iconNumericSizeMap[parentSize]
 
     const sizeClass =
       typeof sizeProp === 'string'

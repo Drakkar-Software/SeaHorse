@@ -2,6 +2,15 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.5.1] — 2026-04-10
+
+### Fixed
+
+- **`BadgeIcon`** — now passes a numeric `size` prop to the icon component (derived from the size name: sm=12, md=14, lg=16), matching the `Icon` primitive's behavior. Previously relied solely on CSS `h-*`/`w-*` classes which Lucide SVG icons ignore in favour of their `size` prop.
+- **`ButtonIcon`** — same fix: computes and passes numeric size (xs=14, sm=16, md/lg=18, xl=20) to the icon component, preventing SVG icons from defaulting to 24px.
+
+---
+
 ## [0.5.0] — 2026-04-10
 
 ### Added
