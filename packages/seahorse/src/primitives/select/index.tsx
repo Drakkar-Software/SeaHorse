@@ -1,7 +1,8 @@
 'use client'
 
 import React, { createContext, useContext, useState, useCallback } from 'react'
-import { Pressable, View, TextInput, Text, Platform } from 'react-native'
+import { Pressable, View, TextInput, Text } from 'react-native-css/components'
+import { Platform } from 'react-native'
 import { cn } from '../../utils/cn'
 import { Check, ChevronDown } from 'lucide-react-native'
 import {

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Platform, View } from 'react-native'
+import { View } from 'react-native-css/components'
+import { Platform } from 'react-native'
 import { cn } from '../../utils/cn'
 
 type DividerProps = React.ComponentPropsWithoutRef<typeof View> & {

@@ -1,6 +1,6 @@
 {
   "name": "@drakkar.software/seahorse",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/Drakkar-Software/seahorse.git"
@@ -173,9 +173,6 @@
       "optional": true
     },
     "expo-haptics": {
-      "optional": true
-    },
-    "react-native-css": {
       "optional": true
     },
     "@legendapp/motion": {

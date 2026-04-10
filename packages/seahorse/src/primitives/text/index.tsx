@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text as RNText } from 'react-native'
+import { Text as RNText } from 'react-native-css/components'
 import { cn } from '../../utils/cn'
 
 const sizeClasses: Record<string, string> = {

@@ -1,6 +1,7 @@
 'use client'
 import React, { createContext, useContext, useCallback, useRef, useState } from 'react'
-import { View, PanResponder, LayoutChangeEvent, Platform } from 'react-native'
+import { View } from 'react-native-css/components'
+import { PanResponder, type LayoutChangeEvent, Platform } from 'react-native'
 import { cn } from '../../utils/cn'
 
 // ---------------------------------------------------------------------------

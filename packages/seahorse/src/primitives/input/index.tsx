@@ -1,14 +1,8 @@
 'use client'
 import React, { useMemo } from 'react'
-import {
-  View,
-  Pressable,
-  TextInput,
-  Platform,
-  type ViewProps,
-  type TextInputProps,
-  type PressableProps,
-} from 'react-native'
+import { View, Pressable, TextInput } from 'react-native-css/components'
+import { Platform } from 'react-native'
+import type { ViewProps, TextInputProps, PressableProps } from 'react-native'
 import { cn } from '../../utils/cn'
 
 // ---------------------------------------------------------------------------
@@ -28,7 +22,7 @@ interface InputContextValue {
   isFocused: boolean
   isHovered: boolean
   setIsFocused: (v: boolean) => void
-  inputFieldRef: React.RefObject<TextInput | null>
+  inputFieldRef: React.RefObject<React.ElementRef<typeof TextInput> | null>
 }
 
 const InputContext = React.createContext<InputContextValue | null>(null)
@@ -142,7 +136,7 @@ interface InputProps extends Omit<ViewProps, 'children'> {
   children?: React.ReactNode
 }
 
-const Input = React.forwardRef<View, InputProps>(
+const Input = React.forwardRef<React.ElementRef<typeof View>, InputProps>(
   (
     {
       className,
@@ -160,7 +154,7 @@ const Input = React.forwardRef<View, InputProps>(
     ref,
   ) => {
     const [isFocused, setIsFocused] = React.useState(false)
-    const inputFieldRef = React.useRef<TextInput>(null)
+    const inputFieldRef = React.useRef<React.ElementRef<typeof TextInput>>(null)
 
     const resolvedFocused = isFocusedProp ?? isFocused
 
@@ -230,7 +224,7 @@ interface InputFieldProps extends TextInputProps {
   variant?: InputVariant
 }
 
-const InputField = React.forwardRef<TextInput, InputFieldProps>(
+const InputField = React.forwardRef<React.ElementRef<typeof TextInput>, InputFieldProps>(
   ({ className, type = 'text', variant: _variant, onFocus, onBlur, onKeyPress, ...props }, ref) => {
     const {
       variant,
@@ -320,7 +314,7 @@ interface InputSlotProps extends PressableProps {
   children?: React.ReactNode
 }
 
-const InputSlot = React.forwardRef<View, InputSlotProps>(
+const InputSlot = React.forwardRef<React.ElementRef<typeof View>, InputSlotProps>(
   ({ className, onPress, focusOnPress = true, children, ...props }, ref) => {
     const { inputFieldRef, isDisabled } = useInputContext()
 

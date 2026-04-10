@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, Pressable } from "react-native";
+import { View, TextInput, Pressable } from "react-native-css/components";
 import { Search, XCircle } from "lucide-react-native";
 
 interface SearchBarProps {

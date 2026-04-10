@@ -1,18 +1,9 @@
 'use client'
 
 import React, { createContext, useContext } from 'react'
-import {
-  Pressable,
-  View,
-  Text,
-  ScrollView,
-  VirtualizedList,
-  FlatList,
-  SectionList,
-  Modal,
-  Platform,
-  type ScrollViewProps,
-} from 'react-native'
+import { Pressable, View, Text, ScrollView, VirtualizedList, FlatList } from 'react-native-css/components'
+import { SectionList, Modal, Platform } from 'react-native'
+import type { ScrollViewProps } from 'react-native'
 import { cn } from '../../utils/cn'
 
 // ---------------------------------------------------------------------------
@@ -213,11 +204,11 @@ const ActionsheetScrollView = React.forwardRef<
 })
 
 const ActionsheetVirtualizedList = React.forwardRef<any, any>(({ className, ...props }, ref) => {
-  return <VirtualizedList ref={ref} className={cn('w-full h-auto', className)} {...(props as any)} />
+  return React.createElement(VirtualizedList as any, { ref, className: cn('w-full h-auto', className), ...props })
 })
 
 const ActionsheetFlatList = React.forwardRef<any, any>(({ className, ...props }, ref) => {
-  return <FlatList ref={ref} className={cn('w-full h-auto', className)} {...(props as any)} />
+  return React.createElement(FlatList as any, { ref, className: cn('w-full h-auto', className), ...props })
 })
 
 const ActionsheetSectionList = React.forwardRef<any, any>(({ className, ...props }, ref) => {

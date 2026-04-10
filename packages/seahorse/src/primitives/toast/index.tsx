@@ -6,7 +6,8 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { Text, View, ViewStyle } from 'react-native'
+import { Text, View } from 'react-native-css/components'
+import type { ViewStyle } from 'react-native'
 import { cn } from '../../utils/cn'
 import {
   Motion,

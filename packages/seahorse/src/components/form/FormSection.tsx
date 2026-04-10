@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, TextInput, Pressable } from "react-native-css/components";
 import { CheckCircle2, Circle, Calendar, Clock } from "lucide-react-native";
 import { format, parseISO } from "date-fns";
 import { enUS } from "date-fns/locale";
@@ -43,7 +43,7 @@ export function InputRow({
   multiline?: boolean;
   onBlur?: () => void;
 }) {
-  const inputRef = useRef<TextInput>(null);
+  const inputRef = useRef<React.ElementRef<typeof TextInput>>(null);
   return (
     <Pressable
       onPress={() => inputRef.current?.focus()}

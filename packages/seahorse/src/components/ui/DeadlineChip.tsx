@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text } from "react-native-css/components";
 import { Clock, AlertCircle } from "lucide-react-native";
 import { differenceInDays, differenceInMonths, isPast, isToday } from "date-fns";
 

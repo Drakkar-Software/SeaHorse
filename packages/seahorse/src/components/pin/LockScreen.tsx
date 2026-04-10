@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text } from "react-native";
+import { View, Text } from "react-native-css/components";
 import { Lock } from "lucide-react-native";
 import { verifyPin, hasBiometrics, authenticateWithBiometrics } from "../../utils/app-lock";
 import { useForgeTheme } from "../../theme/context";

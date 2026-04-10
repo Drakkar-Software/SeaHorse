@@ -2,6 +2,20 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.4.1] — 2026-04-10
+
+### Changed
+
+- **All visual primitives** now import from `react-native-css/components` directly (`View`, `Text`, `Pressable`, `ScrollView`, `TextInput`, `ActivityIndicator`, `Switch`, `FlatList`, `VirtualizedList`) instead of `react-native`. This removes the dependency on NativeWind's Metro babel transform for `className` support in these components — each component from `react-native-css/components` has `className` built in via `useCssElement`. Consumers no longer need `globalClassNamePolyfill: true` in their Metro config for SeaHorse to work.
+- `react-native-css` is now a **required** peer dependency (was optional). It was already listed in Requirements; this formalises it.
+
+### Fixed
+
+- Removed `cssInterop` calls from `Spinner` and `Switch` primitives — `react-native-css/components` already provides className-aware versions of `ActivityIndicator` and `Switch`, making the interop wrappers redundant.
+- Removed expression-complexity TypeScript error (TS2590) in `ActionsheetVirtualizedList` and `ActionsheetFlatList`.
+
+---
+
 ## [0.4.0] — 2026-04-10
 
 ### Added

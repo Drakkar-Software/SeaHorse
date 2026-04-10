@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, type ViewProps } from 'react-native'
+import { View } from 'react-native-css/components'
+import type { ViewProps } from 'react-native'
 import { cn } from '../../utils/cn'
 
 const sizeClasses: Record<string, string> = {

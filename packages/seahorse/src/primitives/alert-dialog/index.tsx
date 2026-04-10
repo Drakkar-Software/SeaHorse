@@ -1,13 +1,7 @@
 import React, { createContext, useContext } from 'react'
-import {
-  Modal as RNModal,
-  Pressable,
-  ScrollView,
-  View,
-  type ViewProps,
-  type ScrollViewProps,
-  type PressableProps,
-} from 'react-native'
+import { Pressable, ScrollView, View } from 'react-native-css/components'
+import { Modal as RNModal } from 'react-native'
+import type { ViewProps, ScrollViewProps, PressableProps } from 'react-native'
 import { X } from 'lucide-react-native'
 import { cn } from '../../utils/cn'
 
@@ -56,7 +50,7 @@ interface AlertDialogProps {
   className?: string
 }
 
-const AlertDialog = React.forwardRef<View, AlertDialogProps>(
+const AlertDialog = React.forwardRef<React.ElementRef<typeof View>, AlertDialogProps>(
   (
     {
       isOpen,
@@ -102,7 +96,7 @@ interface AlertDialogBackdropProps extends PressableProps {
   className?: string
 }
 
-const AlertDialogBackdrop = React.forwardRef<View, AlertDialogBackdropProps>(
+const AlertDialogBackdrop = React.forwardRef<React.ElementRef<typeof View>, AlertDialogBackdropProps>(
   ({ className, ...props }, ref) => {
     const { onClose, closeOnOverlayClick } = useAlertDialogContext()
 
@@ -128,7 +122,7 @@ interface AlertDialogContentProps extends ViewProps {
   className?: string
 }
 
-const AlertDialogContent = React.forwardRef<View, AlertDialogContentProps>(
+const AlertDialogContent = React.forwardRef<React.ElementRef<typeof View>, AlertDialogContentProps>(
   ({ className, ...props }, ref) => {
     const { size } = useAlertDialogContext()
 
@@ -154,7 +148,7 @@ interface AlertDialogHeaderProps extends ViewProps {
   className?: string
 }
 
-const AlertDialogHeader = React.forwardRef<View, AlertDialogHeaderProps>(
+const AlertDialogHeader = React.forwardRef<React.ElementRef<typeof View>, AlertDialogHeaderProps>(
   ({ className, ...props }, ref) => (
     <View
       ref={ref}
@@ -172,7 +166,7 @@ interface AlertDialogBodyProps extends ScrollViewProps {
   className?: string
 }
 
-const AlertDialogBody = React.forwardRef<ScrollView, AlertDialogBodyProps>(
+const AlertDialogBody = React.forwardRef<React.ElementRef<typeof ScrollView>, AlertDialogBodyProps>(
   ({ className, ...props }, ref) => (
     <ScrollView ref={ref} className={cn('mt-2 mb-4', className)} {...props} />
   ),
@@ -186,7 +180,7 @@ interface AlertDialogFooterProps extends ViewProps {
   className?: string
 }
 
-const AlertDialogFooter = React.forwardRef<View, AlertDialogFooterProps>(
+const AlertDialogFooter = React.forwardRef<React.ElementRef<typeof View>, AlertDialogFooterProps>(
   ({ className, ...props }, ref) => (
     <View
       ref={ref}
@@ -205,7 +199,7 @@ interface AlertDialogCloseButtonProps extends PressableProps {
 }
 
 const AlertDialogCloseButton = React.forwardRef<
-  View,
+  React.ElementRef<typeof View>,
   AlertDialogCloseButtonProps
 >(({ className, children, ...props }, ref) => {
   const { onClose } = useAlertDialogContext()

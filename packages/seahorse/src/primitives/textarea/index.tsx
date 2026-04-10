@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput } from 'react-native-css/components';
 import type { ViewProps, TextInputProps } from 'react-native';
 import { cn } from '../../utils/cn';
 
@@ -53,7 +53,7 @@ type TextareaProps = ViewProps & {
   isReadOnly?: boolean;
 };
 
-const Textarea = React.forwardRef<View, TextareaProps>(
+const Textarea = React.forwardRef<React.ElementRef<typeof View>, TextareaProps>(
   (
     {
       className,
@@ -92,7 +92,7 @@ const Textarea = React.forwardRef<View, TextareaProps>(
 
 type TextareaInputProps = TextInputProps;
 
-const TextareaInput = React.forwardRef<TextInput, TextareaInputProps>(
+const TextareaInput = React.forwardRef<React.ElementRef<typeof TextInput>, TextareaInputProps>(
   ({ className, ...props }, ref) => {
     const { size, isDisabled, isInvalid, isReadOnly } =
       React.useContext(TextareaContext);

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Pressable, Text } from "react-native";
+import { View, Pressable, Text } from "react-native-css/components";
 
 interface Segment {
   key: string;

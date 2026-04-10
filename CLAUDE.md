@@ -49,6 +49,35 @@ Several utilities ship two code paths controlled by `Platform.OS === "web"` chec
 ### Theming
 `ForgeThemeProvider` (React Context) wraps the app and accepts `{ colors: { primary, destructive } }`. Components read it via `useForgeTheme()`. Layout/structure use NativeWind `className` (Tailwind tokens like `primary-500`); interactive colors (shadows, overlays) use inline `style` props. The Tailwind preset (`./tailwind-preset`) ships zero colors — consuming apps define their own `primary` palette.
 
+### Visual component imports — `react-native-css/components`
+
+All source files in `src/` import visual components from `react-native-css/components`, **not** from `react-native`:
+
+```ts
+// Correct
+import { View, Text, Pressable, ScrollView, TextInput } from 'react-native-css/components'
+
+// Wrong — do not import visual components from react-native inside seahorse source
+import { View, Text } from 'react-native'
+```
+
+Components available from `react-native-css/components`: `View`, `Text`, `Pressable`, `ScrollView`, `TextInput`, `ActivityIndicator`, `Switch`, `FlatList`, `VirtualizedList`, `KeyboardAvoidingView`, `Image`.
+
+Non-visual APIs stay in `react-native`: `Platform`, `Alert`, `Modal`, `SectionList`, `StyleSheet`, `Animated`, `Dimensions`, `AppState`, `Linking`, `Share`, `useWindowDimensions`, and all type-only imports (`ViewProps`, `TextInputProps`, etc.).
+
+**TypeScript note**: Components from `react-native-css/components` are `const` declarations, not classes — they only occupy the value namespace. When used as TypeScript type parameters (e.g. `forwardRef` ref type, `useRef` generic), use `React.ElementRef<typeof ComponentName>`:
+
+```ts
+// forwardRef ref type
+React.forwardRef<React.ElementRef<typeof View>, Props>(...)
+
+// useRef
+const ref = useRef<React.ElementRef<typeof TextInput>>(null)
+
+// RefObject in a context type
+inputFieldRef: React.RefObject<React.ElementRef<typeof TextInput> | null>
+```
+
 ### JSX transform
 `tsconfig.json` sets `"jsxImportSource": "nativewind"`, so all JSX is compiled through NativeWind's transform that enables `className` props on React Native primitives.
 

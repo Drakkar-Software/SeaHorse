@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react'
-import { Animated, Easing, Platform, View } from 'react-native'
+import { View } from 'react-native-css/components'
+import { Animated, Easing, Platform } from 'react-native'
 import { cn } from '../../utils/cn'
 
 const variantClasses: Record<string, string> = {

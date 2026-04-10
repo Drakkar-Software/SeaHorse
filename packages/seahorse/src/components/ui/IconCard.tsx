@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native-css/components";
 
 interface IconCardProps {
   icon: React.ReactNode;

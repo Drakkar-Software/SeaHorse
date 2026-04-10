@@ -1,5 +1,6 @@
 import React from 'react'
-import { Pressable as RNPressable, type PressableProps } from 'react-native'
+import { Pressable as RNPressable } from 'react-native-css/components'
+import type { PressableProps } from 'react-native'
 import { cn } from '../../utils/cn'
 
 type IPressableProps = PressableProps & { className?: string }

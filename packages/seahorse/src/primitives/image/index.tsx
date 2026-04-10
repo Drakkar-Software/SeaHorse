@@ -1,5 +1,6 @@
 import React from 'react'
-import { Image as RNImage, Platform } from 'react-native'
+import { Image as RNImage } from 'react-native-css/components'
+import { Platform } from 'react-native'
 import { cn } from '../../utils/cn'
 
 const sizeClasses: Record<string, string> = {

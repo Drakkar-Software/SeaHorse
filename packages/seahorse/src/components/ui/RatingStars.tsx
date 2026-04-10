@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Pressable } from "react-native";
+import { View, Pressable } from "react-native-css/components";
 import { Star } from "lucide-react-native";
 
 interface RatingStarsProps {

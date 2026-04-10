@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext } from 'react'
-import { ActivityIndicator, Pressable, Text, View } from 'react-native'
+import { ActivityIndicator, Pressable, Text, View } from 'react-native-css/components'
 import { cn } from '../../utils/cn'
 
 // ---------------------------------------------------------------------------

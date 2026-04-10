@@ -1,11 +1,6 @@
 import React from 'react'
-import { ActivityIndicator } from 'react-native'
-import { styled as cssInterop } from 'react-native-css'
+import { ActivityIndicator } from 'react-native-css/components'
 import { cn } from '../../utils/cn'
-
-cssInterop(ActivityIndicator, {
-  className: { target: 'style', nativeStyleToProp: { color: true } } as any,
-})
 
 const Spinner = React.forwardRef<
   React.ElementRef<typeof ActivityIndicator>,

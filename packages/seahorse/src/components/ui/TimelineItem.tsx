@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Pressable } from "react-native";
+import { View, Pressable } from "react-native-css/components";
 
 interface TimelineItemProps {
   left: React.ReactNode;

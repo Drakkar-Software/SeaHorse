@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text } from 'react-native-css/components'
 import { cn } from '../../utils/cn'
 
 // ---------------------------------------------------------------------------

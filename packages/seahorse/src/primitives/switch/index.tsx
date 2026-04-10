@@ -1,12 +1,7 @@
 'use client'
 import React from 'react'
-import { Switch as RNSwitch } from 'react-native'
-import { styled as cssInterop } from 'react-native-css'
+import { Switch as RNSwitch } from 'react-native-css/components'
 import { cn } from '../../utils/cn'
-
-cssInterop(RNSwitch, {
-  className: { target: 'style' },
-})
 
 const sizeVariants = {
   sm: 'scale-75',

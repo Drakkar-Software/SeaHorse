@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native-css/components";
 import type { LucideIcon } from "lucide-react-native";
 
 interface EmptyStateProps {

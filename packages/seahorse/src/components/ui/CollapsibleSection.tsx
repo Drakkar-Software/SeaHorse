@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native-css/components";
 import { ChevronDown, ChevronUp } from "lucide-react-native";
 
 interface CollapsibleSectionProps {

@@ -1,13 +1,7 @@
 import React, { createContext, useContext } from 'react'
-import {
-  Modal as RNModal,
-  Pressable,
-  ScrollView,
-  View,
-  type ViewProps,
-  type ScrollViewProps,
-  type PressableProps,
-} from 'react-native'
+import { Pressable, ScrollView, View } from 'react-native-css/components'
+import { Modal as RNModal } from 'react-native'
+import type { ViewProps, ScrollViewProps, PressableProps } from 'react-native'
 import { X } from 'lucide-react-native'
 import { cn } from '../../utils/cn'
 
@@ -54,7 +48,7 @@ interface ModalProps {
   className?: string
 }
 
-const Modal = React.forwardRef<View, ModalProps>(
+const Modal = React.forwardRef<React.ElementRef<typeof View>, ModalProps>(
   ({ isOpen, onClose, size = 'md', children, className, ...props }, ref) => {
     return (
       <ModalContext.Provider value={{ onClose, size }}>
@@ -89,7 +83,7 @@ interface ModalBackdropProps extends PressableProps {
   className?: string
 }
 
-const ModalBackdrop = React.forwardRef<View, ModalBackdropProps>(
+const ModalBackdrop = React.forwardRef<React.ElementRef<typeof View>, ModalBackdropProps>(
   ({ className, ...props }, ref) => {
     const { onClose } = useModalContext()
 
@@ -115,7 +109,7 @@ interface ModalContentProps extends ViewProps {
   className?: string
 }
 
-const ModalContent = React.forwardRef<View, ModalContentProps>(
+const ModalContent = React.forwardRef<React.ElementRef<typeof View>, ModalContentProps>(
   ({ className, ...props }, ref) => {
     const { size } = useModalContext()
 
@@ -141,7 +135,7 @@ interface ModalHeaderProps extends ViewProps {
   className?: string
 }
 
-const ModalHeader = React.forwardRef<View, ModalHeaderProps>(
+const ModalHeader = React.forwardRef<React.ElementRef<typeof View>, ModalHeaderProps>(
   ({ className, ...props }, ref) => (
     <View
       ref={ref}
@@ -159,7 +153,7 @@ interface ModalBodyProps extends ScrollViewProps {
   className?: string
 }
 
-const ModalBody = React.forwardRef<ScrollView, ModalBodyProps>(
+const ModalBody = React.forwardRef<React.ElementRef<typeof ScrollView>, ModalBodyProps>(
   ({ className, ...props }, ref) => (
     <ScrollView ref={ref} className={cn('mt-2 mb-6', className)} {...props} />
   ),
@@ -173,7 +167,7 @@ interface ModalFooterProps extends ViewProps {
   className?: string
 }
 
-const ModalFooter = React.forwardRef<View, ModalFooterProps>(
+const ModalFooter = React.forwardRef<React.ElementRef<typeof View>, ModalFooterProps>(
   ({ className, ...props }, ref) => (
     <View
       ref={ref}
@@ -191,7 +185,7 @@ interface ModalCloseButtonProps extends PressableProps {
   className?: string
 }
 
-const ModalCloseButton = React.forwardRef<View, ModalCloseButtonProps>(
+const ModalCloseButton = React.forwardRef<React.ElementRef<typeof View>, ModalCloseButtonProps>(
   ({ className, children, ...props }, ref) => {
     const { onClose } = useModalContext()
 

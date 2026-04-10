@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View } from 'react-native-css/components'
 import { cn } from '../../utils/cn'
 
 type BadgeAction = 'error' | 'warning' | 'success' | 'info' | 'muted'

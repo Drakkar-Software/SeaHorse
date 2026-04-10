@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { View, Text, Pressable, TextInput } from "react-native";
+import { View, Text, Pressable, TextInput } from "react-native-css/components";
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import { useBottomSheetModal } from "./useBottomSheetModal";
 

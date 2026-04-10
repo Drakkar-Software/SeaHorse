@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { View, Text, Pressable, Modal } from "react-native";
+import { View, Text, Pressable } from "react-native-css/components";
+import { Modal } from "react-native";
 import { Lock, X } from "lucide-react-native";
 import { savePin, setLockEnabled } from "../../utils/app-lock";
 import { useForgeTheme } from "../../theme/context";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, Text } from "react-native";
+import { Pressable, Text } from "react-native-css/components";
 
 interface DeleteButtonProps {
   label: string;

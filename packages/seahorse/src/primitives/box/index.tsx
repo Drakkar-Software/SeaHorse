@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, type ViewProps } from 'react-native'
+import { View } from 'react-native-css/components'
+import type { ViewProps } from 'react-native'
 
 type BoxProps = ViewProps & { className?: string }
 

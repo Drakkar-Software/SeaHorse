@@ -1,5 +1,6 @@
 import React, { createContext, useContext } from 'react'
-import { View, Text, Image, Platform } from 'react-native'
+import { View, Text, Image } from 'react-native-css/components'
+import { Platform } from 'react-native'
 import { cn } from '../../utils/cn'
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'

@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Pressable, Text } from "react-native";
+import { ScrollView, Pressable, Text } from "react-native-css/components";
 import type { LucideIcon } from "lucide-react-native";
 
 interface FilterTab {

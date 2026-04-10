@@ -232,10 +232,8 @@ Parse/serialize URL arrays stored as a single JSON string field.
 
 | Dependency | Used by |
 |---|---|
-| Dependency | Used by |
-|---|---|
 | `react >=19`, `react-native >=0.83`, `nativewind >=5`, `lucide-react-native` | All components |
-| `react-native-css >=3` | Heading, Spinner, Switch (cssInterop) |
+| `react-native-css >=3` | All visual primitives — `View`, `Text`, `Pressable`, `ScrollView`, `TextInput`, `ActivityIndicator`, `Switch`, `FlatList`, `VirtualizedList` are imported from `react-native-css/components` |
 | `@gorhom/bottom-sheet >=5` | ConfirmSheet, RenameSheet, DatePickerModal, TimePickerModal |
 | `date-fns >=3` | DatePickerModal, DeadlineChip, FormSection DateRow |
 | `expo-secure-store >=13` | secure-store, app-lock |

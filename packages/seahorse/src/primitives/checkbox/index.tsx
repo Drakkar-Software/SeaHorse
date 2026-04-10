@@ -1,6 +1,7 @@
 'use client'
 import React, { useCallback, useMemo } from 'react'
-import { View, Pressable, Text, Platform } from 'react-native'
+import { View, Pressable, Text } from 'react-native-css/components'
+import { Platform } from 'react-native'
 import type { PressableProps, ViewProps, TextProps } from 'react-native'
 import { Svg, Path } from 'react-native-svg'
 import { cn } from '../../utils/cn'
