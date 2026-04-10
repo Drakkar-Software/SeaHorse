@@ -53,7 +53,7 @@ All notable changes to `@drakkar.software/seahorse` will be documented here.
 
 ### Infrastructure
 
-- Peer dep `nativewind` bumped to `>=5.0.0`.
+- Peer dep `nativewind` bumped to `>=5.0.0-0` (includes pre-release versions like `5.0.0-preview.x`).
 - New peer dep `react-native-css >=3.0.0` (required by NW v5 for `cssInterop`).
 - Peer dep `react` bumped to `>=19.0.0`, `react-native` to `>=0.83.0`.
 - Direct deps added: `clsx ^2.1.0`, `tailwind-merge ^3.0.0`.
