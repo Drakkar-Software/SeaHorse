@@ -19,6 +19,22 @@ config.resolver.nodeModulesPaths = [
 // Support package exports
 config.resolver.unstable_conditionNames = ["import", "default", "require"];
 
+// Force singleton packages to the app's copy so shared React contexts
+// (BottomSheetModalProvider, GestureHandlerRootView, etc.) are not split
+// across two module instances. pnpm resolves peer deps per-package, giving
+// the library its own copy in packages/seahorse/node_modules — Metro would
+// pick that up first for files inside the library tree.
+const singletons = [
+  "react",
+  "react-native",
+  "react-native-reanimated",
+  "react-native-gesture-handler",
+  "@gorhom/bottom-sheet",
+];
+config.resolver.extraNodeModules = Object.fromEntries(
+  singletons.map((pkg) => [pkg, path.resolve(projectRoot, "node_modules", pkg)])
+);
+
 const originalResolveRequest = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   const resolve = originalResolveRequest ?? context.resolveRequest;
