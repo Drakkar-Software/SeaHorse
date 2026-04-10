@@ -2,6 +2,20 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.1.1] — 2026-04-10
+
+### Fixed
+
+- Add `/// <reference types="nativewind/types" />` and ambient module stubs (`expo-sqlite/kv-store`, `expo-file-system/legacy`) to fix TypeScript build for consumers
+
+### Internal
+
+- Restructured into pnpm monorepo (`packages/seahorse` + `example/`)
+- Added test suite: 66 tests covering `crypto`, `links`, `date`, `secure-store`, `app-lock`, `kv-storage` (web + native paths via `vi.mock`)
+- Added `CLAUDE.md` for contributor guidance
+
+---
+
 ## [0.1.0] — 2026-04-10
 
 ### Initial release
