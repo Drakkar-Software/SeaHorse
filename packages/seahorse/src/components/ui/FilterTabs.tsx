@@ -23,7 +23,7 @@ export function FilterTabs({ tabs, activeKey, onSelect, className }: FilterTabsP
       horizontal
       showsHorizontalScrollIndicator={false}
       className={className ?? "mb-4"}
-      contentContainerStyle={{ paddingHorizontal: 16, gap: 8 }}
+      contentContainerStyle={{ paddingHorizontal: 16, gap: 8, alignItems: "center" }}
     >
       {tabs.map((tab) => {
         if (tab.hidden) return null;

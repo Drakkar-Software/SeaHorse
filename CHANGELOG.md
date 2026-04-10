@@ -2,6 +2,14 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.6.1] — 2026-04-10
+
+### Fixed
+
+- **`FilterTabs`** — added `alignItems: "center"` to `contentContainerStyle` on the horizontal `ScrollView`. Chips now vertically center-align within their row when active (filled) and inactive (outlined) pills render at slightly different heights.
+
+---
+
 ## [0.6.0] — 2026-04-10
 
 ### Added
