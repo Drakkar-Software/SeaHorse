@@ -57,6 +57,14 @@
       "types": "./dist/utils/links.d.ts",
       "import": "./dist/utils/links.js"
     },
+    "./utils/date": {
+      "types": "./dist/utils/date.d.ts",
+      "import": "./dist/utils/date.js"
+    },
+    "./utils/ota-update": {
+      "types": "./dist/utils/ota-update.d.ts",
+      "import": "./dist/utils/ota-update.js"
+    },
     "./theme": {
       "types": "./dist/theme/index.d.ts",
       "import": "./dist/theme/index.js"
@@ -82,7 +90,8 @@
     "expo-print": ">=13.0.0",
     "expo-document-picker": ">=12.0.0",
     "sonner": ">=2.0.0",
-    "sonner-native": ">=0.20.0"
+    "sonner-native": ">=0.20.0",
+    "expo-updates": ">=0.25.0"
   },
   "peerDependenciesMeta": {
     "@gorhom/bottom-sheet": { "optional": true },
@@ -96,7 +105,8 @@
     "expo-print": { "optional": true },
     "expo-document-picker": { "optional": true },
     "sonner": { "optional": true },
-    "sonner-native": { "optional": true }
+    "sonner-native": { "optional": true },
+    "expo-updates": { "optional": true }
   },
   "scripts": {
     "build": "tsc --build",

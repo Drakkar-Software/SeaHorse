@@ -22,3 +22,5 @@ export { DatePickerModal } from "./DatePickerModal";
 export { TimePickerModal } from "./TimePickerModal";
 export { SectionTitle, FormCard, InputRow, DateRow, TimeRow, ToggleRow, ChipSelect } from "./FormSection";
 export { DeadlineChip } from "./DeadlineChip";
+export { LockScreen } from "./LockScreen";
+export { PinSetup } from "./PinSetup";

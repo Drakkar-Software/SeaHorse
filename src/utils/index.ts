@@ -5,3 +5,5 @@ export { isLockEnabled, setLockEnabled, savePin, verifyPin, hasBiometrics, authe
 export { usePwaInstall } from "./pwa-install";
 export { parseLinks, serializeLinks, isValidUrl } from "./links";
 export { exportToPdf, exportToCsv, exportJsonWeb, exportJsonNative, importJsonWeb, importJsonNative } from "./file-export";
+export { safeFormat } from "./date";
+export { useAutoOtaUpdate } from "./ota-update";
