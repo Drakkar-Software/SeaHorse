@@ -19,28 +19,32 @@ config.resolver.nodeModulesPaths = [
 // Support package exports
 config.resolver.unstable_conditionNames = ["import", "default", "require"];
 
-// Fix @babel/runtime ESM crash on web
 const originalResolveRequest = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
+  const resolve = originalResolveRequest ?? context.resolveRequest;
+
+  // NativeWind v5 preview dropped jsx-runtime shims; expo-router still imports them.
+  // Redirect to React's own runtime — NW's transform is Babel-level, not runtime.
+  if (moduleName === "nativewind/jsx-runtime") {
+    return resolve(context, "react/jsx-runtime", platform);
+  }
+  if (moduleName === "nativewind/jsx-dev-runtime") {
+    return resolve(context, "react/jsx-dev-runtime", platform);
+  }
+
+  // Fix @babel/runtime ESM crash on web
   if (
     platform === "web" &&
     moduleName.startsWith("@babel/runtime/helpers/esm/")
   ) {
-    const cjsName = moduleName.replace(
-      "@babel/runtime/helpers/esm/",
-      "@babel/runtime/helpers/",
-    );
-    return (originalResolveRequest ?? context.resolveRequest)(
+    return resolve(
       context,
-      cjsName,
+      moduleName.replace("@babel/runtime/helpers/esm/", "@babel/runtime/helpers/"),
       platform,
     );
   }
-  return (originalResolveRequest ?? context.resolveRequest)(
-    context,
-    moduleName,
-    platform,
-  );
+
+  return resolve(context, moduleName, platform);
 };
 
 module.exports = withNativeWind(config, { input: "./global.css" });
