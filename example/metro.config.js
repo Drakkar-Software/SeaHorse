@@ -32,6 +32,13 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
     return resolve(context, "react/jsx-dev-runtime", platform);
   }
 
+  // react-native-css/components uses cssInterop which fails on web (Object.entries
+  // on an undefined RNView). On web, NativeWind handles className via real CSS classes,
+  // so the cssInterop wrapper is not needed — redirect to react-native directly.
+  if (platform === "web" && moduleName === "react-native-css/components") {
+    return resolve(context, "react-native", platform);
+  }
+
   // Fix @babel/runtime ESM crash on web
   if (
     platform === "web" &&

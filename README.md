@@ -19,6 +19,118 @@ Generic UI components and utilities for React Native / Expo apps.
 
 ---
 
+## Expo app setup (NativeWind v5 / Tailwind v4)
+
+NativeWind v5 is in alpha. Several config quirks are required. Follow each step.
+
+### 1. Install dependencies
+
+```bash
+npx expo install nativewind@^5.0.0-preview.3 react-native-css@^3.0.6 \
+  react-native-web tailwindcss @tailwindcss/postcss
+```
+
+> `react-native-web` is required by `expo-router` even for native-only apps.  
+> `tailwindcss` and `@tailwindcss/postcss` drive the v4 CSS pipeline.
+
+### 2. `babel.config.js`
+
+Do **not** add `nativewind/babel` or `jsxImportSource: "nativewind"` — NativeWind v5 removed the Babel plugin. Use the plain Expo preset:
+
+```js
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: [["babel-preset-expo", { unstable_transformImportMeta: true }]],
+  };
+};
+```
+
+### 3. `metro.config.js`
+
+Use lowercase `withNativewind` (no arguments). Add three resolver redirects to handle NW v5 preview.3 gaps on web:
+
+```js
+const { getDefaultConfig } = require("expo/metro-config");
+const { withNativewind } = require("nativewind/metro");
+const path = require("path");
+
+const config = getDefaultConfig(__dirname);
+
+const originalResolveRequest = config.resolver.resolveRequest;
+config.resolver.resolveRequest = (context, moduleName, platform) => {
+  const resolve = originalResolveRequest ?? context.resolveRequest;
+
+  // NW v5 preview dropped jsx-runtime shims; expo-router still imports them.
+  if (moduleName === "nativewind/jsx-runtime")
+    return resolve(context, "react/jsx-runtime", platform);
+  if (moduleName === "nativewind/jsx-dev-runtime")
+    return resolve(context, "react/jsx-dev-runtime", platform);
+
+  // react-native-css/components uses cssInterop which fails on web.
+  // On web NativeWind handles className via real CSS — bypass cssInterop.
+  if (platform === "web" && moduleName === "react-native-css/components")
+    return resolve(context, "react-native", platform);
+
+  // Fix @babel/runtime ESM crash on web.
+  if (platform === "web" && moduleName.startsWith("@babel/runtime/helpers/esm/"))
+    return resolve(context, moduleName.replace("@babel/runtime/helpers/esm/", "@babel/runtime/helpers/"), platform);
+
+  return resolve(context, moduleName, platform);
+};
+
+module.exports = withNativewind(config);
+```
+
+### 4. `postcss.config.mjs`
+
+Required for Tailwind CSS v4:
+
+```js
+export default {
+  plugins: { "@tailwindcss/postcss": {} },
+};
+```
+
+### 5. `app.json`
+
+Set web output to `"single"` (SPA mode). The `"static"` SSR mode triggers bundling errors with NW v5:
+
+```json
+{
+  "expo": {
+    "web": { "bundler": "metro", "output": "single" }
+  }
+}
+```
+
+### 6. `pnpm` lightningcss override (pnpm only)
+
+If you use pnpm, pin `lightningcss` to avoid peer conflicts:
+
+```json
+{
+  "pnpm": {
+    "overrides": { "lightningcss": "1.30.1" }
+  }
+}
+```
+
+### 7. React version (if using `react-native-web`)
+
+`react-native-web` pulls in `react-dom`. Pin `react` to the same version to avoid peer mismatch warnings:
+
+```json
+{
+  "dependencies": {
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
+  }
+}
+```
+
+---
+
 ## Install
 
 ```bash
