@@ -2,6 +2,14 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.7.2] — 2026-04-11
+
+### Added
+
+- `isPwaStandalone()` — pure function that returns `true` when the app is running in installed PWA standalone mode. Checks `display-mode: standalone` media query + `navigator.standalone` (iOS Safari fallback). Returns `false` on native. Exported from `./utils/pwa-install` and `./utils`.
+
+---
+
 ## [0.7.0] — 2026-04-10
 
 ### Added

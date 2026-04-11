@@ -8,6 +8,15 @@
 import { useState, useEffect, useCallback } from "react";
 import { Platform } from "react-native";
 
+/** Returns true when the app is running as an installed PWA (standalone mode). */
+export function isPwaStandalone(): boolean {
+  if (Platform.OS !== "web") return false;
+  return (
+    window.matchMedia("(display-mode: standalone)").matches ||
+    (navigator as any).standalone === true
+  );
+}
+
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
