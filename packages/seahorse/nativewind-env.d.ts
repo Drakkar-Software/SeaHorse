@@ -1,98 +1,24 @@
 /// <reference types="nativewind/types" />
 
-// Stubs for optional peer dependencies not installed in devDeps.
-// These only need to be accurate enough for TypeScript to resolve types
-// used in SeaHorse's own source; consumers install the real packages.
+// Simple stubs for optional peer dependencies not installed in devDeps.
+// Imports from these resolve to `any`; consumers have the real packages.
+declare module "expo-haptics";
+declare module "expo-secure-store";
+declare module "expo-local-authentication";
+declare module "expo-file-system";
+declare module "expo-document-picker";
+declare module "expo-print";
+declare module "expo-sharing";
+declare module "expo-sqlite";
+declare module "expo-updates";
+declare module "@expo/html-elements";
+declare module "@gorhom/bottom-sheet";
+declare module "@react-native-async-storage/async-storage";
+declare module "react-native-svg";
+declare module "sonner";
+declare module "sonner-native";
 
-declare module "expo-haptics" {
-  export enum ImpactFeedbackStyle {
-    Light = "light",
-    Medium = "medium",
-    Heavy = "heavy",
-  }
-  export enum NotificationFeedbackType {
-    Success = "success",
-    Warning = "warning",
-    Error = "error",
-  }
-  export function impactAsync(style?: ImpactFeedbackStyle): Promise<void>;
-  export function notificationAsync(type?: NotificationFeedbackType): Promise<void>;
-  export function selectionAsync(): Promise<void>;
-}
-
-declare module "@expo/html-elements" {
-  import type { ViewProps, TextProps } from "react-native";
-  import type { ComponentType } from "react";
-  export const Section: ComponentType<ViewProps & { className?: string }>;
-  export const Nav: ComponentType<ViewProps & { className?: string }>;
-  export const Footer: ComponentType<ViewProps & { className?: string }>;
-  export const Main: ComponentType<ViewProps & { className?: string }>;
-  export const H1: ComponentType<TextProps & { className?: string }>;
-  export const H2: ComponentType<TextProps & { className?: string }>;
-  export const H3: ComponentType<TextProps & { className?: string }>;
-  export const H4: ComponentType<TextProps & { className?: string }>;
-  export const H5: ComponentType<TextProps & { className?: string }>;
-  export const H6: ComponentType<TextProps & { className?: string }>;
-  export const P: ComponentType<TextProps & { className?: string }>;
-}
-
-// react-native-svg: SvgProps extends ViewProps so it picks up nativewind's
-// className augmentation. Explicit color/fill/stroke mirror the real package.
-declare module "react-native-svg" {
-  import type { ViewProps } from "react-native";
-  import type { ComponentType, ReactNode } from "react";
-  export interface SvgProps extends ViewProps {
-    color?: string;
-    fill?: string;
-    fillOpacity?: number | string;
-    stroke?: string;
-    strokeWidth?: number | string;
-    strokeOpacity?: number | string;
-    strokeLinecap?: "butt" | "round" | "square";
-    strokeLinejoin?: "miter" | "round" | "bevel";
-    strokeDasharray?: number | string;
-    strokeDashoffset?: number | string;
-    width?: number | string;
-    height?: number | string;
-    viewBox?: string;
-    preserveAspectRatio?: string;
-    opacity?: number | string;
-    x?: number | string;
-    y?: number | string;
-    r?: number | string;
-    cx?: number | string;
-    cy?: number | string;
-    rx?: number | string;
-    ry?: number | string;
-    d?: string;
-    children?: ReactNode;
-  }
-  const Svg: ComponentType<SvgProps>;
-  export { Svg };
-  export default Svg;
-  export const Circle: ComponentType<SvgProps>;
-  export const Rect: ComponentType<SvgProps>;
-  export const Path: ComponentType<SvgProps>;
-  export const G: ComponentType<SvgProps>;
-  export const Line: ComponentType<SvgProps>;
-  export const Polygon: ComponentType<SvgProps>;
-  export const Polyline: ComponentType<SvgProps>;
-  export const Text: ComponentType<SvgProps>;
-  export const TSpan: ComponentType<SvgProps>;
-  export const Ellipse: ComponentType<SvgProps>;
-  export const Defs: ComponentType<SvgProps>;
-  export const ClipPath: ComponentType<SvgProps>;
-  export const Stop: ComponentType<SvgProps>;
-  export const LinearGradient: ComponentType<SvgProps>;
-  export const RadialGradient: ComponentType<SvgProps>;
-  export const Mask: ComponentType<SvgProps>;
-  export const Use: ComponentType<SvgProps>;
-  export const Symbol: ComponentType<SvgProps>;
-  export const ForeignObject: ComponentType<SvgProps>;
-  export const Image: ComponentType<SvgProps>;
-}
-
-// Ambient stubs for peer dependency subpaths not resolvable at build time
+// Subpath stubs for peer deps whose package exports don't include these paths
 declare module "expo-file-system/legacy" {
   export const cacheDirectory: string | null;
   export enum EncodingType {
