@@ -50,7 +50,7 @@ const Icon = React.forwardRef<unknown, IconProps>(
       <NativeAwareIcon
         ref={ref}
         size={numericSize}
-        color={color}
+        {...(color !== undefined ? { color } : {})}
         className={cn(
           'text-typography-950 fill-none pointer-events-none',
           sizeClass,

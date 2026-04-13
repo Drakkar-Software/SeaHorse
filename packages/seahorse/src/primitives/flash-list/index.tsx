@@ -15,7 +15,6 @@ export function FlashList<T>({
     <LegendList
       {...(rest as any)}
       style={[{ flex: 1 }, style]}
-      recycleItems
       drawDistance={250}
     />
   )
