@@ -1,11 +1,21 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useState, useLayoutEffect, useCallback } from 'react'
 import { View, Text, Image } from 'react-native-css/components'
 import { Platform } from 'react-native'
 import { cn } from '../../utils/cn'
 
 type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 
-const AvatarContext = createContext<{ size: AvatarSize }>({ size: 'md' })
+type AvatarContextType = {
+  size: AvatarSize
+  hasImage: boolean
+  setHasImage: (v: boolean) => void
+}
+
+const AvatarContext = createContext<AvatarContextType>({
+  size: 'md',
+  hasImage: false,
+  setHasImage: () => {},
+})
 
 const sizeClasses: Record<AvatarSize, string> = {
   'xs': 'w-6 h-6',
@@ -40,21 +50,24 @@ type AvatarProps = React.ComponentPropsWithoutRef<typeof View> & {
 }
 
 const Avatar = React.forwardRef<React.ElementRef<typeof View>, AvatarProps>(
-  ({ className, size = 'md', children, ...props }, ref) => (
-    <AvatarContext.Provider value={{ size }}>
-      <View
-        ref={ref}
-        className={cn(
-          'rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5',
-          sizeClasses[size],
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </View>
-    </AvatarContext.Provider>
-  ),
+  ({ className, size = 'md', children, ...props }, ref) => {
+    const [hasImage, setHasImage] = useState(false)
+    return (
+      <AvatarContext.Provider value={{ size, hasImage, setHasImage }}>
+        <View
+          ref={ref}
+          className={cn(
+            'rounded-full justify-center items-center relative bg-primary-600 group-[.avatar-group]/avatar-group:-ml-2.5',
+            sizeClasses[size],
+            className,
+          )}
+          {...props}
+        >
+          {children}
+        </View>
+      </AvatarContext.Provider>
+    )
+  },
 )
 
 type AvatarBadgeProps = React.ComponentPropsWithoutRef<typeof View> & {
@@ -86,7 +99,8 @@ const AvatarFallbackText = React.forwardRef<
   React.ElementRef<typeof Text>,
   AvatarFallbackTextProps
 >(({ className, ...props }, ref) => {
-  const { size } = useContext(AvatarContext)
+  const { size, hasImage } = useContext(AvatarContext)
+  if (hasImage) return null
   return (
     <Text
       ref={ref}
@@ -105,19 +119,35 @@ type AvatarImageProps = React.ComponentPropsWithoutRef<typeof Image> & {
 }
 
 const AvatarImage = React.forwardRef<React.ElementRef<typeof Image>, AvatarImageProps>(
-  ({ className, ...props }, ref) => (
-    <Image
-      ref={ref}
-      className={cn('h-full w-full rounded-full absolute', className)}
-      {...props}
-      // @ts-expect-error web revert-layer
-      style={
-        Platform.OS === 'web'
-          ? { height: 'revert-layer', width: 'revert-layer' }
-          : undefined
-      }
-    />
-  ),
+  ({ className, source, onError, ...props }, ref) => {
+    const { setHasImage } = useContext(AvatarContext)
+    const sourceUri = (source as any)?.uri
+
+    useLayoutEffect(() => {
+      setHasImage(!!sourceUri)
+    }, [sourceUri])
+
+    const handleError = useCallback(() => {
+      setHasImage(false)
+      ;(onError as any)?.()
+    }, [setHasImage, onError])
+
+    return (
+      <Image
+        ref={ref}
+        className={cn('h-full w-full rounded-full absolute', className)}
+        source={source}
+        onError={handleError}
+        {...props}
+        // @ts-expect-error web revert-layer
+        style={
+          Platform.OS === 'web'
+            ? { height: 'revert-layer', width: 'revert-layer' }
+            : undefined
+        }
+      />
+    )
+  },
 )
 
 type AvatarGroupProps = React.ComponentPropsWithoutRef<typeof View> & {
