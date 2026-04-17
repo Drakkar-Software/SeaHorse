@@ -2,6 +2,14 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.7.7] — 2026-04-17
+
+### Fixed
+
+- **`Avatar`** — `AvatarFallbackText` no longer renders when `AvatarImage` has a valid source URI. Uses `useLayoutEffect` to track source presence in context; falls back to showing the text if the image errors. Previously, the fallback initials were always rendered (just hidden behind the absolute-positioned image), causing them to briefly appear or show through on mobile PWA.
+
+---
+
 ## [0.7.6] — 2026-04-13
 
 ### Changed
