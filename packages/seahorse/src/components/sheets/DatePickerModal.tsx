@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { View, Text, Pressable } from "react-native-css/components";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
 import {
@@ -17,8 +17,7 @@ import {
 } from "date-fns";
 import { enUS } from "date-fns/locale";
 import type { Locale } from "date-fns";
-import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-import { useBottomSheetModal } from "./useBottomSheetModal";
+import { SheetShell } from "./SheetShell";
 
 interface DatePickerModalProps {
   visible: boolean;
@@ -42,8 +41,6 @@ export function DatePickerModal({
   todayLabel = "Today",
   clearLabel = "Clear",
 }: DatePickerModalProps) {
-  const { ref, renderBackdrop } = useBottomSheetModal(visible);
-
   const selectedDate = value ? parseISO(value) : null;
   const [displayMonth, setDisplayMonth] = useState(selectedDate ?? new Date());
 
@@ -92,107 +89,97 @@ export function DatePickerModal({
   };
 
   return (
-    <BottomSheetModal
-      ref={ref}
-      enableDynamicSizing
-      enablePanDownToClose
-      backdropComponent={renderBackdrop}
-      onDismiss={onClose}
-      backgroundStyle={{ backgroundColor: "transparent" }}
-      handleComponent={() => null}
-    >
-      <BottomSheetView>
-        <View className="bg-background-0 rounded-t-3xl px-5 pt-5 pb-8">
-          <View className="w-10 h-1 rounded-full bg-outline-200 self-center mb-4" />
+    <SheetShell visible={visible} onDismiss={onClose}>
+      <View className="bg-background-0 rounded-t-3xl px-5 pt-5 pb-8">
+        <View className="w-10 h-1 rounded-full bg-outline-200 self-center mb-4" />
 
-          {/* Month navigation */}
-          <View className="flex-row items-center justify-between mb-3">
-            <Pressable
-              onPress={() => setDisplayMonth(subMonths(displayMonth, 1))}
-              className="p-2"
-            >
-              <ChevronLeft size={20} className="text-typography-400" />
-            </Pressable>
-            <Text className="text-base font-semibold text-typography-900 capitalize">
-              {format(displayMonth, "MMMM yyyy", { locale: dateLocale })}
-            </Text>
-            <Pressable
-              onPress={() => setDisplayMonth(addMonths(displayMonth, 1))}
-              className="p-2"
-            >
-              <ChevronRight size={20} className="text-typography-400" />
-            </Pressable>
-          </View>
+        {/* Month navigation */}
+        <View className="flex-row items-center justify-between mb-3">
+          <Pressable
+            onPress={() => setDisplayMonth(subMonths(displayMonth, 1))}
+            className="p-2"
+          >
+            <ChevronLeft size={20} className="text-typography-400" />
+          </Pressable>
+          <Text className="text-base font-semibold text-typography-900 capitalize">
+            {format(displayMonth, "MMMM yyyy", { locale: dateLocale })}
+          </Text>
+          <Pressable
+            onPress={() => setDisplayMonth(addMonths(displayMonth, 1))}
+            className="p-2"
+          >
+            <ChevronRight size={20} className="text-typography-400" />
+          </Pressable>
+        </View>
 
-          {/* Day-of-week headers */}
-          <View className="flex-row mb-1">
-            {dayHeaders.map((d, i) => (
-              <View key={i} className="flex-1 items-center py-1">
-                <Text className="text-xs font-medium text-typography-400 uppercase">{d}</Text>
-              </View>
-            ))}
-          </View>
-
-          {/* Calendar grid */}
-          {weeks.map((week, wi) => (
-            <View key={wi} className="flex-row">
-              {week.map((day, di) => {
-                const inMonth = isSameMonth(day, displayMonth);
-                const selected = selectedDate && isSameDay(day, selectedDate);
-                const today = isToday(day);
-
-                return (
-                  <Pressable
-                    key={di}
-                    onPress={() => inMonth && handleDayPress(day)}
-                    className="flex-1 items-center justify-center py-2"
-                  >
-                    <View
-                      className={`w-9 h-9 items-center justify-center rounded-full ${
-                        selected
-                          ? "bg-primary-500"
-                          : today && inMonth
-                            ? "border border-primary-500"
-                            : ""
-                      }`}
-                    >
-                      <Text
-                        className={`text-sm ${
-                          selected
-                            ? "text-white font-semibold"
-                            : !inMonth
-                              ? "text-typography-300"
-                              : "text-typography-700"
-                        }`}
-                      >
-                        {format(day, "d")}
-                      </Text>
-                    </View>
-                  </Pressable>
-                );
-              })}
+        {/* Day-of-week headers */}
+        <View className="flex-row mb-1">
+          {dayHeaders.map((d, i) => (
+            <View key={i} className="flex-1 items-center py-1">
+              <Text className="text-xs font-medium text-typography-400 uppercase">{d}</Text>
             </View>
           ))}
-
-          {/* Footer buttons */}
-          <View className="flex-row gap-3 mt-4">
-            <Pressable
-              onPress={handleToday}
-              className="flex-1 py-3 rounded-2xl items-center bg-primary-500 active:opacity-80"
-            >
-              <Text className="text-white font-semibold text-sm">{todayLabel}</Text>
-            </Pressable>
-            <Pressable
-              onPress={handleClear}
-              className="flex-1 py-3 rounded-2xl items-center bg-background-900 active:opacity-80"
-            >
-              <Text className="text-typography-700 font-medium text-sm">
-                {clearLabel}
-              </Text>
-            </Pressable>
-          </View>
         </View>
-      </BottomSheetView>
-    </BottomSheetModal>
+
+        {/* Calendar grid */}
+        {weeks.map((week, wi) => (
+          <View key={wi} className="flex-row">
+            {week.map((day, di) => {
+              const inMonth = isSameMonth(day, displayMonth);
+              const selected = selectedDate && isSameDay(day, selectedDate);
+              const today = isToday(day);
+
+              return (
+                <Pressable
+                  key={di}
+                  onPress={() => inMonth && handleDayPress(day)}
+                  className="flex-1 items-center justify-center py-2"
+                >
+                  <View
+                    className={`w-9 h-9 items-center justify-center rounded-full ${
+                      selected
+                        ? "bg-primary-500"
+                        : today && inMonth
+                          ? "border border-primary-500"
+                          : ""
+                    }`}
+                  >
+                    <Text
+                      className={`text-sm ${
+                        selected
+                          ? "text-white font-semibold"
+                          : !inMonth
+                            ? "text-typography-300"
+                            : "text-typography-700"
+                      }`}
+                    >
+                      {format(day, "d")}
+                    </Text>
+                  </View>
+                </Pressable>
+              );
+            })}
+          </View>
+        ))}
+
+        {/* Footer buttons */}
+        <View className="flex-row gap-3 mt-4">
+          <Pressable
+            onPress={handleToday}
+            className="flex-1 py-3 rounded-2xl items-center bg-primary-500 active:opacity-80"
+          >
+            <Text className="text-white font-semibold text-sm">{todayLabel}</Text>
+          </Pressable>
+          <Pressable
+            onPress={handleClear}
+            className="flex-1 py-3 rounded-2xl items-center bg-background-900 active:opacity-80"
+          >
+            <Text className="text-typography-700 font-medium text-sm">
+              {clearLabel}
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    </SheetShell>
   );
 }

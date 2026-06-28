@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, Pressable, ScrollView } from "react-native-css/components";
-import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-import { useBottomSheetModal } from "./useBottomSheetModal";
+import { SheetShell } from "./SheetShell";
 
 const HOURS = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, "0"));
 const MINUTES = Array.from({ length: 12 }, (_, i) => (i * 5).toString().padStart(2, "0"));
@@ -30,7 +29,6 @@ export function TimePickerModal({
   hoursLabel = "Hours",
   minutesLabel = "Minutes",
 }: TimePickerModalProps) {
-  const { ref: sheetRef, renderBackdrop } = useBottomSheetModal(visible);
   const hourRef = useRef<React.ElementRef<typeof ScrollView>>(null);
   const minuteRef = useRef<React.ElementRef<typeof ScrollView>>(null);
 
@@ -75,89 +73,79 @@ export function TimePickerModal({
   };
 
   return (
-    <BottomSheetModal
-      ref={sheetRef}
-      enableDynamicSizing
-      enablePanDownToClose
-      backdropComponent={renderBackdrop}
-      onDismiss={onClose}
-      backgroundStyle={{ backgroundColor: "transparent" }}
-      handleComponent={() => null}
-    >
-      <BottomSheetView>
-        <View className="bg-background-0 rounded-t-3xl px-5 pt-5 pb-8">
-          <View className="w-10 h-1 rounded-full bg-outline-200 self-center mb-4" />
+    <SheetShell visible={visible} onDismiss={onClose}>
+      <View className="bg-background-0 rounded-t-3xl px-5 pt-5 pb-8">
+        <View className="w-10 h-1 rounded-full bg-outline-200 self-center mb-4" />
 
-          <Text className="text-center text-3xl font-bold text-typography-900 mb-4">
-            {selectedHour}:{selectedMinute}
-          </Text>
+        <Text className="text-center text-3xl font-bold text-typography-900 mb-4">
+          {selectedHour}:{selectedMinute}
+        </Text>
 
-          <View className="flex-row gap-4" style={{ height: ITEM_HEIGHT * 5 }}>
-            {/* Hours */}
-            <View className="flex-1">
-              <Text className="text-xs font-semibold text-typography-400 uppercase tracking-wider text-center mb-2">
-                {hoursLabel}
-              </Text>
-              <ScrollView ref={hourRef} showsVerticalScrollIndicator={false} className="flex-1" nestedScrollEnabled>
-                {HOURS.map((h) => (
-                  <Pressable
-                    key={h}
-                    onPress={() => setSelectedHour(h)}
-                    className={`items-center justify-center rounded-xl mx-1 ${selectedHour === h ? "bg-primary-500" : ""}`}
-                    style={{ height: ITEM_HEIGHT }}
+        <View className="flex-row gap-4" style={{ height: ITEM_HEIGHT * 5 }}>
+          {/* Hours */}
+          <View className="flex-1">
+            <Text className="text-xs font-semibold text-typography-400 uppercase tracking-wider text-center mb-2">
+              {hoursLabel}
+            </Text>
+            <ScrollView ref={hourRef} showsVerticalScrollIndicator={false} className="flex-1" nestedScrollEnabled>
+              {HOURS.map((h) => (
+                <Pressable
+                  key={h}
+                  onPress={() => setSelectedHour(h)}
+                  className={`items-center justify-center rounded-xl mx-1 ${selectedHour === h ? "bg-primary-500" : ""}`}
+                  style={{ height: ITEM_HEIGHT }}
+                >
+                  <Text
+                    className={`text-lg ${selectedHour === h ? "text-white font-semibold" : "text-typography-700"}`}
                   >
-                    <Text
-                      className={`text-lg ${selectedHour === h ? "text-white font-semibold" : "text-typography-700"}`}
-                    >
-                      {h}
-                    </Text>
-                  </Pressable>
-                ))}
-              </ScrollView>
-            </View>
-
-            <Text className="text-2xl font-bold text-typography-300 self-center">:</Text>
-
-            {/* Minutes */}
-            <View className="flex-1">
-              <Text className="text-xs font-semibold text-typography-400 uppercase tracking-wider text-center mb-2">
-                {minutesLabel}
-              </Text>
-              <ScrollView ref={minuteRef} showsVerticalScrollIndicator={false} className="flex-1" nestedScrollEnabled>
-                {MINUTES.map((m) => (
-                  <Pressable
-                    key={m}
-                    onPress={() => setSelectedMinute(m)}
-                    className={`items-center justify-center rounded-xl mx-1 ${selectedMinute === m ? "bg-primary-500" : ""}`}
-                    style={{ height: ITEM_HEIGHT }}
-                  >
-                    <Text
-                      className={`text-lg ${selectedMinute === m ? "text-white font-semibold" : "text-typography-700"}`}
-                    >
-                      {m}
-                    </Text>
-                  </Pressable>
-                ))}
-              </ScrollView>
-            </View>
+                    {h}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
           </View>
 
-          <View className="flex-row gap-3 mt-4">
-            <Pressable
-              onPress={handleConfirm}
-              className="flex-1 py-3 rounded-2xl items-center bg-primary-500 active:opacity-80"
-            >
-              <Text className="text-white font-semibold text-sm">{confirmLabel}</Text>
-            </Pressable>
-            <Pressable
-              onPress={handleClear}
-              className="flex-1 py-3 rounded-2xl items-center bg-background-900 active:opacity-80"
-            >
-              <Text className="text-typography-700 font-medium text-sm">{clearLabel}</Text>
-            </Pressable>
+          <Text className="text-2xl font-bold text-typography-300 self-center">:</Text>
+
+          {/* Minutes */}
+          <View className="flex-1">
+            <Text className="text-xs font-semibold text-typography-400 uppercase tracking-wider text-center mb-2">
+              {minutesLabel}
+            </Text>
+            <ScrollView ref={minuteRef} showsVerticalScrollIndicator={false} className="flex-1" nestedScrollEnabled>
+              {MINUTES.map((m) => (
+                <Pressable
+                  key={m}
+                  onPress={() => setSelectedMinute(m)}
+                  className={`items-center justify-center rounded-xl mx-1 ${selectedMinute === m ? "bg-primary-500" : ""}`}
+                  style={{ height: ITEM_HEIGHT }}
+                >
+                  <Text
+                    className={`text-lg ${selectedMinute === m ? "text-white font-semibold" : "text-typography-700"}`}
+                  >
+                    {m}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
           </View>
         </View>
-      </BottomSheetView>
-    </BottomSheetModal>
+
+        <View className="flex-row gap-3 mt-4">
+          <Pressable
+            onPress={handleConfirm}
+            className="flex-1 py-3 rounded-2xl items-center bg-primary-500 active:opacity-80"
+          >
+            <Text className="text-white font-semibold text-sm">{confirmLabel}</Text>
+          </Pressable>
+          <Pressable
+            onPress={handleClear}
+            className="flex-1 py-3 rounded-2xl items-center bg-background-900 active:opacity-80"
+          >
+            <Text className="text-typography-700 font-medium text-sm">{clearLabel}</Text>
+          </Pressable>
+        </View>
+      </View>
+    </SheetShell>
   );
 }

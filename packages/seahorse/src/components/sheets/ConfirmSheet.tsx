@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, Pressable } from "react-native-css/components";
-import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
-import { useBottomSheetModal } from "./useBottomSheetModal";
+import { SheetShell } from "./SheetShell";
 
 interface ConfirmSheetProps {
   visible: boolean;
@@ -24,43 +23,31 @@ export function ConfirmSheet({
   onConfirm,
   onCancel,
 }: ConfirmSheetProps) {
-  const { ref, renderBackdrop } = useBottomSheetModal(visible);
-
   return (
-    <BottomSheetModal
-      ref={ref}
-      enableDynamicSizing
-      enablePanDownToClose
-      backdropComponent={renderBackdrop}
-      onDismiss={onCancel}
-      backgroundStyle={{ backgroundColor: "transparent" }}
-      handleComponent={() => null}
-    >
-      <BottomSheetView>
-        <View className="bg-background-0 rounded-t-3xl px-6 pt-6 pb-10">
-          <View className="w-10 h-1 rounded-full bg-outline-200 self-center mb-5" />
-          <Text className="text-xl font-bold text-typography-900 mb-2">{title}</Text>
-          <Text className="text-typography-500 mb-6 leading-5">{message}</Text>
-          <View className="gap-3">
-            <Pressable
-              onPress={onConfirm}
-              className={`py-3.5 rounded-2xl items-center ${
-                destructive ? "bg-error-500" : "bg-primary-500"
-              } active:opacity-80`}
-            >
-              <Text className="text-white font-semibold text-base">{confirmLabel}</Text>
-            </Pressable>
-            <Pressable
-              onPress={onCancel}
-              className="py-3.5 rounded-2xl items-center bg-background-900 active:opacity-80"
-            >
-              <Text className="text-typography-700 font-medium text-base">
-                {cancelLabel}
-              </Text>
-            </Pressable>
-          </View>
+    <SheetShell visible={visible} onDismiss={onCancel}>
+      <View className="bg-background-0 rounded-t-3xl px-6 pt-6 pb-10">
+        <View className="w-10 h-1 rounded-full bg-outline-200 self-center mb-5" />
+        <Text className="text-xl font-bold text-typography-900 mb-2">{title}</Text>
+        <Text className="text-typography-500 mb-6 leading-5">{message}</Text>
+        <View className="gap-3">
+          <Pressable
+            onPress={onConfirm}
+            className={`py-3.5 rounded-2xl items-center ${
+              destructive ? "bg-error-500" : "bg-primary-500"
+            } active:opacity-80`}
+          >
+            <Text className="text-white font-semibold text-base">{confirmLabel}</Text>
+          </Pressable>
+          <Pressable
+            onPress={onCancel}
+            className="py-3.5 rounded-2xl items-center bg-background-900 active:opacity-80"
+          >
+            <Text className="text-typography-700 font-medium text-base">
+              {cancelLabel}
+            </Text>
+          </Pressable>
         </View>
-      </BottomSheetView>
-    </BottomSheetModal>
+      </View>
+    </SheetShell>
   );
 }
