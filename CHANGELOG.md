@@ -2,6 +2,18 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.7.9] — 2026-06-29
+
+### Added
+
+- **`Sheet`** — public cross-platform bottom-sheet shell exported from `./components`. Accepts `visible`, `onDismiss`, and `children`. On web it renders a slide-up `Modal` (gorhom's `BottomSheetModal` does not present on `react-native-web`); on native it renders the usual `@gorhom/bottom-sheet` `BottomSheetModal`. Use this to build custom sheet content that works on all platforms.
+
+### Internal
+
+- Extracted `SheetShell` component from the previously uncommitted 0.7.8 work and committed it to source. All four sheet components (`ConfirmSheet`, `RenameSheet`, `DatePickerModal`, `TimePickerModal`) now delegate to `SheetShell` internally instead of repeating the `BottomSheetModal` boilerplate — no behaviour change on native, web now works.
+
+---
+
 ## [0.7.7] — 2026-04-17
 
 ### Fixed

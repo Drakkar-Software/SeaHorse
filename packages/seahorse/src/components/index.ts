@@ -22,6 +22,7 @@ export { DeadlineChip } from "./ui/DeadlineChip";
 export { FeatureCard } from "./ui/FeatureCard";
 
 // Sheets & modals
+export { SheetShell as Sheet } from "./sheets/SheetShell";
 export { ConfirmSheet } from "./sheets/ConfirmSheet";
 export { RenameSheet } from "./sheets/RenameSheet";
 export { DatePickerModal } from "./sheets/DatePickerModal";
