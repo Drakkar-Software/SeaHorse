@@ -2,6 +2,27 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.8.1] — 2026-06-30
+
+### Fixed
+
+- **`Sheet` (SheetShell) — fixed grey side-bars, top overflow, and off-center content on iOS.**
+  `RNHostView matchContents` was locking the SwiftUI host to the content's intrinsic width (~QR size),
+  so the sheet's own background showed as grey bars on both sides, spinners were off-center, and the
+  auto-height measurement was taken off the shrunk host causing top overflow.
+  Fix: removed the redundant outer `<Host>` (the universal `BottomSheet` already creates its own),
+  and wrapped children in a `View` sized to `windowWidth − 32` (the 2×16px BottomSheet internal
+  insets) so the measured width equals the full sheet width.
+
+### Added
+
+- **`Sheet` — new optional `backgroundColor?: string` prop.**
+  When provided, passes `presentationBackground(color)` as a modifier to `@expo/ui` `BottomSheet`
+  so the full sheet chrome (drag-indicator zone + home-indicator safe-area inset) is tinted to match
+  the content background. No-op on web.
+
+---
+
 ## [0.8.0] — 2026-06-30
 
 ### Changed
