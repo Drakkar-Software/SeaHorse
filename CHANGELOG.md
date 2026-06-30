@@ -2,6 +2,32 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.9.0] — 2026-06-30
+
+### Fixed
+
+- **`Sheet` (SheetShell) — crash on web: `Cannot find native module 'ExpoUI'`.**
+  The web branch rendered an RN `Modal`, but the file still had top-level
+  `import { BottomSheet, RNHostView } from "@expo/ui"` and
+  `import { presentationBackground } from "@expo/ui/swift-ui/modifiers"` — both call
+  `requireNativeModule('ExpoUI')` at module-evaluation time, before the `Platform.OS`
+  check ever runs, crashing any web bundle that pulls in `Sheet`/`ConfirmSheet`/
+  `RenameSheet`/`DatePickerModal`/`TimePickerModal`.
+
+### Changed
+
+- **`Sheet` (SheetShell) — native backend swapped to `@expo/ui/community/bottom-sheet`.**
+  Single cross-platform import replaces the universal `BottomSheet` + `RNHostView` +
+  `presentationBackground` + hand-rolled web `Modal`/`Pressable` backdrop. SwiftUI sheet
+  on iOS, Material3 `ModalBottomSheet` on Android, `vaul` drawer on web — web now gets a
+  real swipeable drawer instead of a plain modal. The public
+  `{ visible, onDismiss, children, backgroundColor? }` API is unchanged.
+  `visible` maps to `index={visible ? 0 : -1}`; `backgroundColor` maps to
+  `backgroundStyle={{ backgroundColor }}` (was iOS-only `presentationBackground`, now
+  applied on all three platforms).
+
+---
+
 ## [0.8.1] — 2026-06-30
 
 ### Fixed
