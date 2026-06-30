@@ -2,6 +2,29 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.8.0] — 2026-06-30
+
+### Changed
+
+- **`Sheet` (SheetShell) — native branch migrated from `@gorhom/bottom-sheet` to `@expo/ui` `BottomSheet`.**
+  Replaces gorhom's `BottomSheetModal` (and the internal `useBottomSheetModal` hook) with the Expo
+  universal `BottomSheet` component — SwiftUI `.sheet()` on iOS, Jetpack Compose `ModalBottomSheet`
+  on Android. The public `{ visible, onDismiss, children }` API is unchanged. Content is hosted via
+  `RNHostView matchContents` for intrinsic sizing. Web branch (RN `Modal`) is unchanged.
+- Removed custom grabber-pill `<View>` from all four content components (`ConfirmSheet`,
+  `RenameSheet`, `DatePickerModal`, `TimePickerModal`) — the OS drag indicator replaces it.
+- Dropped `@gorhom/bottom-sheet` and `react-native-gesture-handler` from `peerDependencies`.
+  Added `@expo/ui: >=56.0.0` as an optional peer.
+
+### Breaking
+
+- Requires `@expo/ui` in the host app (`~56.0.18` for SDK 56). A native rebuild is needed (pod
+  install on iOS / Gradle on Android) because `@expo/ui` adds native modules.
+- `@gorhom/bottom-sheet` is no longer required as a peer — hosts can uninstall it if nothing else
+  uses it.
+
+---
+
 ## [0.7.12] — 2026-06-30
 
 ### Internal

@@ -91,8 +91,6 @@ export function DatePickerModal({
   return (
     <SheetShell visible={visible} onDismiss={onClose}>
       <View className="bg-background-0 rounded-t-3xl px-5 pt-5 pb-8">
-        <View className="w-10 h-1 rounded-full bg-outline-200 self-center mb-4" />
-
         {/* Month navigation */}
         <View className="flex-row items-center justify-between mb-3">
           <Pressable

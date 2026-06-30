@@ -1,6 +1,6 @@
 {
   "name": "@drakkar.software/seahorse",
-  "version": "0.7.12",
+  "version": "0.8.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Drakkar-Software/seahorse.git"
@@ -108,7 +108,7 @@
   },
   "peerDependencies": {
     "@expo/html-elements": "^55.0.0",
-    "@gorhom/bottom-sheet": "^5.2.9",
+    "@expo/ui": ">=56.0.0",
     "@legendapp/list": "^2.0.19",
     "@legendapp/motion": "^2.5.3",
     "@react-native-async-storage/async-storage": "^2.0.0",
@@ -127,7 +127,6 @@
     "react": "19.2.3",
     "react-native": "0.85.3",
     "react-native-css": "^3.0.6",
-    "react-native-gesture-handler": "~2.31.2",
     "react-native-reanimated": "4.3.1",
     "react-native-svg": "^15.0.0",
     "react-native-worklets": ">=0.3.0",
@@ -135,7 +134,7 @@
     "sonner-native": "^0.20.0"
   },
   "peerDependenciesMeta": {
-    "@gorhom/bottom-sheet": {
+    "@expo/ui": {
       "optional": true
     },
     "date-fns": {
@@ -175,9 +174,6 @@
       "optional": true
     },
     "@expo/html-elements": {
-      "optional": true
-    },
-    "react-native-gesture-handler": {
       "optional": true
     },
     "react-native-reanimated": {

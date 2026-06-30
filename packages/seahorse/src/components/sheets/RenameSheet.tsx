@@ -36,7 +36,6 @@ export function RenameSheet({
   return (
     <SheetShell visible={visible} onDismiss={onCancel}>
       <View className="bg-background-0 rounded-t-3xl px-6 pt-6 pb-10">
-        <View className="w-10 h-1 rounded-full bg-outline-200 self-center mb-5" />
         <Text className="text-xl font-bold text-typography-900 mb-4">{title}</Text>
         <TextInput
           value={value}
