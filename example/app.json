@@ -26,7 +26,8 @@
       "expo-router",
       "expo-secure-store",
       "expo-local-authentication",
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-sharing"
     ],
     "experiments": {
       "typedRoutes": true

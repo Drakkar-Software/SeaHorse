@@ -105,6 +105,59 @@ Source lives in `src/components/` with four semantic subfolders. The public API 
 
 `HorizontalChipSelect` is a thin wrapper over `FilterTabs` (which is the superset). `FilterTabs` supports optional `icon?`, `count?`, and `hidden?` per tab in addition to the basic `key/label` API.
 
+## Release process
+
+Follow these steps in order when cutting a new version.
+
+### 1. Align dependencies
+
+Run the dep-check script and fix any version mismatches between `example/` and `packages/seahorse` devDependencies:
+
+```bash
+node scripts/check-deps.mjs
+```
+
+For every mismatch shown in the "Version comparison" section, update `packages/seahorse/package.json` devDependencies to match the version used in `example/package.json`. Re-run the script until 0 mismatches.
+
+### 2. Bump the version
+
+Edit `packages/seahorse/package.json` — increment `"version"` following semver:
+- patch (`0.7.9` → `0.7.10`): bug fixes, dep bumps, internal changes
+- minor (`0.7.x` → `0.8.0`): new exported components or utilities
+- major (`0.x.y` → `1.0.0`): breaking API changes
+
+### 3. Add a CHANGELOG entry
+
+Prepend a new section to `CHANGELOG.md` immediately after the `# Changelog` header:
+
+```markdown
+## [<version>] — <YYYY-MM-DD>
+
+### Added / Changed / Fixed / Internal
+
+- **`ComponentName`** — description of what changed and why it matters to consumers.
+```
+
+Use only the headings that apply. Keep entries consumer-facing — omit pure internal refactors unless they affect behaviour. Match the style of existing entries.
+
+### 4. Verify
+
+```bash
+cd packages/seahorse && pnpm build && pnpm test
+```
+
+Both must pass before committing.
+
+### 5. Commit
+
+Stage only `packages/seahorse/package.json`, `CHANGELOG.md`, and any source changes. Commit message format:
+
+```
+release: <version>
+```
+
+---
+
 ## Testing
 
 Tests run with Vitest in a `node` environment. Only pure TypeScript utilities are tested; component rendering tests require additional setup (see below).

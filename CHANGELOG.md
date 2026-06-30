@@ -2,6 +2,17 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.7.10] — 2026-06-30
+
+### Internal
+
+- Locked all `peerDependencies` from open `>=` ranges to `^` ranges pinned to the versions used in the example app.
+- Aligned `devDependencies` in `packages/seahorse` to match `example/` versions (`react`, `react-native`, `react-native-css`, `lucide-react-native`).
+- Added `scripts/check-deps.mjs` — run `node scripts/check-deps.mjs` from repo root to compare example and seahorse deps after any version bump.
+- Documented release process in `CLAUDE.md`.
+
+---
+
 ## [0.7.9] — 2026-06-29
 
 ### Added
