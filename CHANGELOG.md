@@ -10,6 +10,7 @@ All notable changes to `@drakkar.software/seahorse` will be documented here.
 - Aligned `devDependencies` in `packages/seahorse` to match `example/` versions (`react`, `react-native`, `react-native-css`, `lucide-react-native`).
 - Added `scripts/check-deps.mjs` — run `node scripts/check-deps.mjs` from repo root to compare example and seahorse deps after any version bump.
 - Documented release process in `CLAUDE.md`.
+- Declared `react-native-reanimated` (`>=3.16.0 || >=4.0.0-`), `react-native-gesture-handler` (`>=2.16.1`), and `react-native-worklets` (`>=0.3.0`) as explicit optional `peerDependencies`. These native singletons were already required transitively through `@gorhom/bottom-sheet` but without explicit peer ranges pnpm could resolve them to older nested copies instead of the host app's single native-backed instance, causing `BottomSheetModal.present()` to silently no-op. Marking them as peers ensures pnpm always dedupes them onto the host.
 
 ---
 
