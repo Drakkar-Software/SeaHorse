@@ -2,6 +2,18 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.7.12] — 2026-06-30
+
+### Internal
+
+- Bumped all Expo peer deps from SDK 55 to SDK 56 (`expo-document-picker`, `expo-file-system`, `expo-haptics`, `expo-local-authentication`, `expo-print`, `expo-secure-store`, `expo-sharing`, `expo-sqlite`, `expo-updates`).
+- Updated `react` devDep to `19.2.3`, `react-native` to `0.85.3`, and `typescript` to `^6.0.3` to match example app.
+- Updated `react-native` peer dep range to `^0.85.3`.
+- Tightened `react-native-reanimated` peer range from `>=3.16.0` to `>=4.3.1` to match the v4 API used in the example app.
+- Hardened `scripts/check-deps.mjs` to enforce major-version alignment between peer ranges and example deps (stricter than `semver.intersects`).
+
+---
+
 ## [0.7.11] — 2026-06-30
 
 ### Internal

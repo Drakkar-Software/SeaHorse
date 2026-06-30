@@ -36,7 +36,11 @@ for (const [pkg, range] of Object.entries(peers)) {
   const tag = isOptional ? `${DIM}[optional]${RESET}` : '[required]'
 
   if (exampleVersion) {
-    const compatible = semver.intersects(exampleVersion, range, { includePrerelease: true })
+    const exCoerced = semver.coerce(exampleVersion)
+    const satisfied = exCoerced && semver.satisfies(exCoerced, range, { includePrerelease: true })
+    const minPeer = semver.minVersion(range)
+    const majorMatch = !minPeer || !exCoerced || semver.major(minPeer) === semver.major(exCoerced)
+    const compatible = satisfied && majorMatch
     const icon = compatible ? `${GREEN}✓${RESET}` : `${RED}✗${RESET}`
     console.log(`${icon} ${pkg.padEnd(45)} peer: ${range.padEnd(20)} example: ${exampleVersion} ${tag}`)
     present++
