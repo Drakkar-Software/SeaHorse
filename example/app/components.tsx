@@ -48,7 +48,7 @@ export default function ComponentsScreen() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [chip, setChip] = useState("week");
-  const [segment, setSegment] = useState("list");
+  const [segment, setSegment] = useState(0);
   const [rating, setRating] = useState(3);
   const [status, setStatus] = useState("pending");
   const [toggled, setToggled] = useState(false);
@@ -66,9 +66,9 @@ export default function ComponentsScreen() {
           <FilterTabs tabs={FILTER_TABS} activeKey={filter} onSelect={setFilter} />
           <HorizontalChipSelect options={CHIP_OPTIONS} activeKey={chip} onSelect={setChip} />
           <SegmentedControl
-            segments={[{ key: "list", label: "List" }, { key: "grid", label: "Grid" }]}
-            activeKey={segment}
-            onSelect={setSegment}
+            values={["List", "Grid"]}
+            selectedIndex={segment}
+            onChange={({ nativeEvent }) => setSegment(nativeEvent.selectedSegmentIndex)}
           />
         </View>
 

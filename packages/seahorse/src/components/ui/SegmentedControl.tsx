@@ -1,42 +1,17 @@
 import React from "react";
-import { View, Pressable, Text } from "react-native-css/components";
+import { SegmentedControl as ExpoSegmentedControl } from "@expo/ui/community/segmented-control";
+import type { SegmentedControlProps } from "@expo/ui/community/segmented-control";
+import { useForgeTheme } from "../../theme/context";
 
-interface Segment {
-  key: string;
-  label: string;
-}
+export type { SegmentedControlProps } from "@expo/ui/community/segmented-control";
 
-interface SegmentedControlProps {
-  segments: Segment[];
-  activeKey: string;
-  onSelect: (key: string) => void;
-}
-
-export function SegmentedControl({ segments = [], activeKey, onSelect }: SegmentedControlProps) {
-  return (
-    <View className="px-4 pt-3 pb-2 bg-background-0 border-b border-outline-100">
-      <View className="flex-row bg-background-900 rounded-xl p-1">
-        {segments.map((seg) => {
-          const isActive = seg.key === activeKey;
-          return (
-            <Pressable
-              key={seg.key}
-              onPress={() => onSelect(seg.key)}
-              className={`flex-1 py-2 rounded-lg items-center ${
-                isActive ? "bg-background-0 shadow-soft-1" : ""
-              }`}
-            >
-              <Text
-                className={`text-sm font-medium ${
-                  isActive ? "text-primary-500" : "text-typography-500"
-                }`}
-              >
-                {seg.label}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </View>
-    </View>
-  );
+/**
+ * Stylized cross-platform segmented control: @expo/ui community drop-in.
+ * SwiftUI on iOS, Jetpack Compose on Android, vendored RN segmented control on web —
+ * single import, no platform branching. `tintColor` defaults to the Forge theme primary
+ * (Android/web only; native styling is used on iOS).
+ */
+export function SegmentedControl({ tintColor, ...props }: SegmentedControlProps) {
+  const { colors } = useForgeTheme();
+  return <ExpoSegmentedControl tintColor={tintColor ?? colors.primary} {...props} />;
 }

@@ -1,6 +1,6 @@
 {
   "name": "@drakkar.software/seahorse",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Drakkar-Software/seahorse.git"
@@ -201,6 +201,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
+    "@expo/ui": "56.0.18",
     "@legendapp/list": "^2.0.19",
     "@legendapp/motion": "^2.5.3",
     "@types/react": "^19.0.0",

@@ -2,6 +2,19 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.10.0] — 2026-06-30
+
+### Changed
+
+- **`SegmentedControl` — reimplemented as the `@expo/ui/community/segmented-control` drop-in (BREAKING).**
+  Now renders a native SwiftUI segmented control on iOS, Jetpack Compose on Android, and a vendored
+  RN segmented control on web — single import, no platform branching (mirrors the `Sheet` migration).
+  Public API changes from `{ segments, activeKey, onSelect }` to the @expo/ui native props
+  (`values`, `selectedIndex`, `onChange`/`onValueChange`, `tintColor`, `appearance`, …). `tintColor`
+  defaults to the Forge theme primary (Android/web only). Requires the optional `@expo/ui` peer.
+
+---
+
 ## [0.9.0] — 2026-06-30
 
 ### Fixed

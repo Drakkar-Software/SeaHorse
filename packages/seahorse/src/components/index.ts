@@ -7,6 +7,7 @@ export { SearchBar } from "./ui/SearchBar";
 export { FilterTabs } from "./ui/FilterTabs";
 export { HorizontalChipSelect } from "./ui/HorizontalChipSelect";
 export { SegmentedControl } from "./ui/SegmentedControl";
+export type { SegmentedControlProps } from "./ui/SegmentedControl";
 export { ProgressBar } from "./ui/ProgressBar";
 export { RatingStars } from "./ui/RatingStars";
 export { EmptyState } from "./ui/EmptyState";
