@@ -2,6 +2,16 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.10.1] — 2026-07-01
+
+### Internal
+
+- Bumped all Expo peer deps from SDK 56 to SDK 57 (`@expo/ui`, `@expo/html-elements`, `expo-document-picker`, `expo-file-system`, `expo-haptics`, `expo-local-authentication`, `expo-print`, `expo-secure-store`, `expo-sharing`, `expo-sqlite`, `expo-updates`).
+- Updated `react-native` devDep and peer dep to `0.86.0`, `@expo/ui` devDep to `57.0.1` to match example app.
+- Bumped `react-native-reanimated` peer range to `4.5.0` and `react-native-worklets` peer range to `^0.10.0` (was `>=0.3.0`) — required for React Native 0.86 compatibility (`react-native-reanimated@4.3.1`/`react-native-worklets@0.8.x` don't support RN 0.86).
+
+---
+
 ## [0.10.0] — 2026-06-30
 
 ### Changed
