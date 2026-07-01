@@ -11,12 +11,13 @@ import {
   ChipSelect,
 } from "@drakkar.software/seahorse/components";
 
-const CATEGORY_OPTIONS = [
-  { value: "venue", label: "Venue" },
-  { value: "catering", label: "Catering" },
-  { value: "music", label: "Music" },
-  { value: "photo", label: "Photography" },
-];
+const CATEGORY_OPTIONS = ["venue", "catering", "music", "photo"] as const;
+const CATEGORY_LABELS: Record<(typeof CATEGORY_OPTIONS)[number], string> = {
+  venue: "Venue",
+  catering: "Catering",
+  music: "Music",
+  photo: "Photography",
+};
 
 export default function FormsScreen() {
   const [name, setName] = useState("");
@@ -24,11 +25,11 @@ export default function FormsScreen() {
   const [date, setDate] = useState<Date | null>(null);
   const [time, setTime] = useState<Date | null>(null);
   const [confirmed, setConfirmed] = useState(false);
-  const [category, setCategory] = useState<string | null>(null);
+  const [category, setCategory] = useState<(typeof CATEGORY_OPTIONS)[number]>(CATEGORY_OPTIONS[0]);
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50 dark:bg-gray-900" edges={["bottom"]}>
-      <ScrollView className="flex-1 p-4" contentContainerStyle={{ gap: 16 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f9fafb" }} edges={["bottom"]}>
+      <ScrollView style={{ flex: 1, padding: 16 }} contentContainerStyle={{ gap: 16 }}>
         <SectionTitle title="Vendor Details" />
         <FormCard>
           <InputRow label="Name" value={name} onChangeText={setName} placeholder="Enter vendor name" />
@@ -58,15 +59,15 @@ export default function FormsScreen() {
           <ToggleRow
             label="Confirmed"
             value={confirmed}
-            onChange={setConfirmed}
+            onToggle={() => setConfirmed((c) => !c)}
           />
         </FormCard>
 
         <SectionTitle title="Category" />
         <FormCard>
           <ChipSelect
-            label="Type"
             options={CATEGORY_OPTIONS}
+            labels={CATEGORY_LABELS}
             value={category}
             onChange={setCategory}
           />

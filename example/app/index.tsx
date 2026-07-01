@@ -29,12 +29,12 @@ export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-gray-900" edges={["bottom"]}>
-      <ScrollView className="flex-1 p-4" contentContainerStyle={{ gap: 12 }}>
-        <Text className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }} edges={["bottom"]}>
+      <ScrollView style={{ flex: 1, padding: 16 }} contentContainerStyle={{ gap: 12 }}>
+        <Text style={{ fontSize: 24, fontWeight: "bold", color: "#111827", marginBottom: 8 }}>
           SeaHorse
         </Text>
-        <Text className="text-base text-gray-500 dark:text-gray-400 mb-4">
+        <Text style={{ fontSize: 16, color: "#6b7280", marginBottom: 16 }}>
           Generic UI components and utilities for React Native / Expo apps.
         </Text>
 
@@ -42,12 +42,18 @@ export default function HomeScreen() {
           <TouchableOpacity
             key={section.route}
             onPress={() => router.push(section.route)}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700"
+            style={{
+              backgroundColor: "#ffffff",
+              borderRadius: 16,
+              padding: 16,
+              borderWidth: 1,
+              borderColor: "#f3f4f6",
+            }}
           >
-            <Text className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+            <Text style={{ fontSize: 18, fontWeight: "600", color: "#111827", marginBottom: 4 }}>
               {section.title}
             </Text>
-            <Text className="text-sm text-gray-500 dark:text-gray-400">
+            <Text style={{ fontSize: 14, color: "#6b7280" }}>
               {section.description}
             </Text>
           </TouchableOpacity>

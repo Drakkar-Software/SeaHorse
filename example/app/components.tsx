@@ -44,6 +44,14 @@ const CHIP_OPTIONS = [
   { key: "year", label: "This year" },
 ];
 
+const sectionLabelStyle = {
+  fontSize: 12,
+  fontWeight: "600" as const,
+  color: "#9ca3af",
+  textTransform: "uppercase" as const,
+  letterSpacing: 0.5,
+};
+
 export default function ComponentsScreen() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -57,11 +65,11 @@ export default function ComponentsScreen() {
   const nextWeek = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50 dark:bg-gray-900" edges={["bottom"]}>
-      <ScrollView className="flex-1 p-4" contentContainerStyle={{ gap: 20 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f9fafb" }} edges={["bottom"]}>
+      <ScrollView style={{ flex: 1, padding: 16 }} contentContainerStyle={{ gap: 20 }}>
 
-        <View className="gap-2">
-          <Text className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Search & Filter</Text>
+        <View style={{ gap: 8 }}>
+          <Text style={sectionLabelStyle}>Search & Filter</Text>
           <SearchBar value={search} onChangeText={setSearch} placeholder="Search items…" />
           <FilterTabs tabs={FILTER_TABS} activeKey={filter} onSelect={setFilter} />
           <HorizontalChipSelect options={CHIP_OPTIONS} activeKey={chip} onSelect={setChip} />
@@ -72,9 +80,9 @@ export default function ComponentsScreen() {
           />
         </View>
 
-        <View className="gap-2">
-          <Text className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Badges & Status</Text>
-          <View className="flex-row gap-2 flex-wrap">
+        <View style={{ gap: 8 }}>
+          <Text style={sectionLabelStyle}>Badges & Status</Text>
+          <View style={{ flexDirection: "row", gap: 8, flexWrap: "wrap" }}>
             <StatusBadge label="Confirmed" color="#10B981" />
             <StatusBadge label="Pending" color="#F59E0B" />
             <StatusBadge label="Cancelled" color="#EF4444" />
@@ -83,38 +91,38 @@ export default function ComponentsScreen() {
           <StatusSelector options={STATUSES} activeKey={status} onSelect={setStatus} />
         </View>
 
-        <View className="gap-2">
-          <Text className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Cards</Text>
-          <View className="flex-row gap-2">
+        <View style={{ gap: 8 }}>
+          <Text style={sectionLabelStyle}>Cards</Text>
+          <View style={{ flexDirection: "row", gap: 8 }}>
             <StatCard label="Guests" value="42" icon={Users} className="flex-1" />
             <StatCard label="Items" value="18" icon={Package} className="flex-1" />
           </View>
           <IconCard
-            icon={Star}
+            icon={<Star size={20} color="#111827" />}
             title="Premium Feature"
             subtitle="Unlock advanced capabilities"
             onPress={() => Alert.alert("Pressed")}
           />
         </View>
 
-        <View className="gap-2">
-          <Text className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Progress & Rating</Text>
+        <View style={{ gap: 8 }}>
+          <Text style={sectionLabelStyle}>Progress & Rating</Text>
           <ProgressBar progress={0.65} />
           <RatingStars value={rating} onChange={setRating} />
         </View>
 
-        <View className="gap-2">
-          <Text className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Sections</Text>
+        <View style={{ gap: 8 }}>
+          <Text style={sectionLabelStyle}>Sections</Text>
           <SectionHeader title="My Section" count={5} onAdd={() => Alert.alert("Add")} />
           <CollapsibleSection title="Collapsible">
-            <Text className="text-sm text-gray-600 dark:text-gray-400 p-2">
+            <Text style={{ fontSize: 14, color: "#4b5563", padding: 8 }}>
               Hidden content revealed on tap.
             </Text>
           </CollapsibleSection>
         </View>
 
-        <View className="gap-2">
-          <Text className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Timeline</Text>
+        <View style={{ gap: 8 }}>
+          <Text style={sectionLabelStyle}>Timeline</Text>
           <TimelineItem
             title="Contract signed"
             subtitle="Venue confirmed"
@@ -129,8 +137,8 @@ export default function ComponentsScreen() {
           />
         </View>
 
-        <View className="gap-2">
-          <Text className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Toggle & Actions</Text>
+        <View style={{ gap: 8 }}>
+          <Text style={sectionLabelStyle}>Toggle & Actions</Text>
           <ToggleCard
             title="Enable notifications"
             subtitle="Receive reminders"
@@ -140,16 +148,16 @@ export default function ComponentsScreen() {
           <DeleteButton onPress={() => setShowConfirm(true)} label="Delete item" />
         </View>
 
-        <View className="gap-2">
-          <Text className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Navigation & Media</Text>
+        <View style={{ gap: 8 }}>
+          <Text style={sectionLabelStyle}>Navigation & Media</Text>
           <BackButton text="Go back" onPress={() => Alert.alert("Back pressed")} />
           <ImageBackground
             source={{ uri: "https://picsum.photos/800/200" }}
             className="rounded-xl overflow-hidden"
             style={{ height: 120 }}
           >
-            <View className="flex-1 justify-end p-3">
-              <Text className="text-white font-semibold text-sm">ImageBackground</Text>
+            <View style={{ flex: 1, justifyContent: "flex-end", padding: 12 }}>
+              <Text style={{ color: "#ffffff", fontWeight: "600", fontSize: 14 }}>ImageBackground</Text>
             </View>
           </ImageBackground>
           <FlashList
@@ -158,8 +166,8 @@ export default function ComponentsScreen() {
             style={{ height: 120 }}
             keyExtractor={(item) => item}
             renderItem={({ item }) => (
-              <View className="px-3 py-2 border-b border-gray-100 dark:border-gray-800">
-                <Text className="text-sm">{item}</Text>
+              <View style={{ paddingHorizontal: 12, paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: "#f3f4f6" }}>
+                <Text style={{ fontSize: 14 }}>{item}</Text>
               </View>
             )}
           />

@@ -7,17 +7,37 @@ import { useAutoOtaUpdate } from "@drakkar.software/seahorse/utils/ota-update";
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <View className="flex-row justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700">
-      <Text className="text-sm text-gray-500 dark:text-gray-400">{label}</Text>
-      <Text className="text-sm font-mono text-gray-900 dark:text-white">{value}</Text>
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingVertical: 8,
+        borderBottomWidth: 1,
+        borderBottomColor: "#f3f4f6",
+      }}
+    >
+      <Text style={{ fontSize: 14, color: "#6b7280" }}>{label}</Text>
+      <Text style={{ fontSize: 14, fontFamily: "Menlo", color: "#111827" }}>{value}</Text>
     </View>
   );
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <View className="bg-white dark:bg-gray-800 rounded-2xl p-4 gap-1">
-      <Text className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">{title}</Text>
+    <View style={{ backgroundColor: "#ffffff", borderRadius: 16, padding: 16, gap: 4 }}>
+      <Text
+        style={{
+          fontSize: 12,
+          fontWeight: "600",
+          color: "#9ca3af",
+          textTransform: "uppercase",
+          letterSpacing: 0.5,
+          marginBottom: 8,
+        }}
+      >
+        {title}
+      </Text>
       {children}
     </View>
   );
@@ -33,8 +53,8 @@ export default function UtilsScreen() {
   const links = parseLinks("https://example.com, https://docs.expo.dev");
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50 dark:bg-gray-900" edges={["bottom"]}>
-      <ScrollView className="flex-1 p-4" contentContainerStyle={{ gap: 16 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f9fafb" }} edges={["bottom"]}>
+      <ScrollView style={{ flex: 1, padding: 16 }} contentContainerStyle={{ gap: 16 }}>
 
         <Section title="safeFormat (date-fns wrapper)">
           <Row label="Valid date" value={safeFormat(now, "dd MMM yyyy")} />
@@ -55,7 +75,7 @@ export default function UtilsScreen() {
         </Section>
 
         <Section title="useAutoOtaUpdate">
-          <Text className="text-sm text-gray-500 dark:text-gray-400">
+          <Text style={{ fontSize: 14, color: "#6b7280" }}>
             OTA update check runs on mount in production builds. Skipped in dev mode ({__DEV__ ? "active" : "inactive"}).
           </Text>
         </Section>
