@@ -20,12 +20,11 @@ import {
   FieldGroup,
 } from "@drakkar.software/seahorse/primitives";
 
-// Plain { ios, android } form (not Icon.select + dynamic import()) — avoids
-// depending on @expo/ui's babel plugin being wired into this app's babel config.
-const STAR = {
-  ios: "star.fill" as const,
-  android: require("@expo/material-symbols/star.xml"),
-};
+// Plain SF Symbol string — a real cross-platform icon additionally needs an
+// Android drawable (e.g. via @expo/material-symbols), omitted here since
+// expo-router eagerly bundles every app/ file to build its route table, and
+// an unresolvable asset require in one screen would break the whole bundle.
+const STAR = "star.fill" as const;
 
 export default function NativeScreen() {
   const [switchOn, setSwitchOn] = useState(true);
