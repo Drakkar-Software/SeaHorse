@@ -52,6 +52,7 @@ export * from './card'
 export * from './notification-dot'
 export * from './toast'
 export * from './image-background'
+export * from './bottom-sheet'
 
 // Semantic HTML layout
 export * from './section'

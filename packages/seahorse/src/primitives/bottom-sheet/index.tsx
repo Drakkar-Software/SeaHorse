@@ -1,7 +1,7 @@
 import React from "react";
-import BottomSheet, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
+import BottomSheetNative, { BottomSheetView } from "@expo/ui/community/bottom-sheet";
 
-interface SheetShellProps {
+interface BottomSheetProps {
   visible: boolean;
   onDismiss: () => void;
   children: React.ReactNode;
@@ -14,15 +14,15 @@ interface SheetShellProps {
  * SwiftUI sheet on iOS, Material3 ModalBottomSheet on Android, vaul drawer on web —
  * single import, no platform branching, no native module touched on web.
  */
-export function SheetShell({ visible, onDismiss, children, backgroundColor }: SheetShellProps) {
+export function BottomSheet({ visible, onDismiss, children, backgroundColor }: BottomSheetProps) {
   return (
-    <BottomSheet
+    <BottomSheetNative
       index={visible ? 0 : -1}
       enablePanDownToClose
       onDismiss={onDismiss}
       backgroundStyle={backgroundColor ? { backgroundColor } : undefined}
     >
       <BottomSheetView>{children}</BottomSheetView>
-    </BottomSheet>
+    </BottomSheetNative>
   );
 }

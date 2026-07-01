@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, Pressable, ScrollView } from "react-native-css/components";
-import { SheetShell } from "./SheetShell";
+import { View, Text, ScrollView } from "react-native-css/components";
+import { Pressable } from "../../primitives/pressable";
+import { Button } from "../../primitives/button";
+import { BottomSheet } from "../../primitives/bottom-sheet";
 
 const HOURS = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, "0"));
 const MINUTES = Array.from({ length: 12 }, (_, i) => (i * 5).toString().padStart(2, "0"));
@@ -73,7 +75,7 @@ export function TimePickerModal({
   };
 
   return (
-    <SheetShell visible={visible} onDismiss={onClose}>
+    <BottomSheet visible={visible} onDismiss={onClose}>
       <View className="bg-background-0 rounded-t-3xl px-5 pt-5 pb-8">
         <Text className="text-center text-3xl font-bold text-typography-900 mb-4">
           {selectedHour}:{selectedMinute}
@@ -130,20 +132,24 @@ export function TimePickerModal({
         </View>
 
         <View className="flex-row gap-3 mt-4">
-          <Pressable
-            onPress={handleConfirm}
-            className="flex-1 py-3 rounded-2xl items-center bg-primary-500 active:opacity-80"
-          >
-            <Text className="text-white font-semibold text-sm">{confirmLabel}</Text>
-          </Pressable>
-          <Pressable
-            onPress={handleClear}
-            className="flex-1 py-3 rounded-2xl items-center bg-background-900 active:opacity-80"
-          >
-            <Text className="text-typography-700 font-medium text-sm">{clearLabel}</Text>
-          </Pressable>
+          <View className="flex-1">
+            <Button
+              variant="filled"
+              label={confirmLabel}
+              onPress={handleConfirm}
+              style={{ paddingVertical: 12, borderRadius: 16 }}
+            />
+          </View>
+          <View className="flex-1">
+            <Button
+              variant="outlined"
+              label={clearLabel}
+              onPress={handleClear}
+              style={{ paddingVertical: 12, borderRadius: 16 }}
+            />
+          </View>
         </View>
       </View>
-    </SheetShell>
+    </BottomSheet>
   );
 }

@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback, useState } from "react";
-import { View, Text, Pressable, TextInput } from "react-native-css/components";
-import { SheetShell } from "./SheetShell";
+import { View, Text } from "react-native-css/components";
+import { Input } from "../../primitives/input";
+import { Button } from "../../primitives/button";
+import { BottomSheet } from "../../primitives/bottom-sheet";
 
 interface RenameSheetProps {
   visible: boolean;
@@ -34,44 +36,45 @@ export function RenameSheet({
   }, [value, onConfirm]);
 
   return (
-    <SheetShell visible={visible} onDismiss={onCancel}>
+    <BottomSheet visible={visible} onDismiss={onCancel}>
       <View className="bg-background-0 rounded-t-3xl px-6 pt-6 pb-10">
         <Text className="text-xl font-bold text-typography-900 mb-4">{title}</Text>
-        <TextInput
-          value={value}
-          onChangeText={setValue}
-          placeholder={placeholder}
-          placeholderTextColor="rgb(212, 212, 212)"
-          autoFocus
-          style={{
-            fontSize: 16,
-            color: "rgb(38, 38, 39)",
-            backgroundColor: "rgb(247, 249, 250)",
-            borderRadius: 12,
-            paddingHorizontal: 14,
-            paddingVertical: 12,
-            marginBottom: 16,
-            borderWidth: 1,
-            borderColor: "rgb(230, 230, 230)",
-          }}
-        />
+        <View className="mb-4">
+          <Input
+            value={value}
+            onChangeText={setValue}
+            placeholder={placeholder}
+            placeholderTextColor="rgb(212, 212, 212)"
+            autoFocus
+            style={{
+              backgroundColor: "rgb(247, 249, 250)",
+              borderRadius: 12,
+              paddingHorizontal: 14,
+              paddingVertical: 12,
+              borderWidth: 1,
+              borderColor: "rgb(230, 230, 230)",
+            }}
+            textStyle={{
+              fontSize: 16,
+              color: "rgb(38, 38, 39)",
+            }}
+          />
+        </View>
         <View className="gap-3">
-          <Pressable
+          <Button
+            variant="filled"
+            label={saveLabel}
             onPress={handleConfirm}
-            className="py-3.5 rounded-2xl items-center bg-primary-500 active:opacity-80"
-          >
-            <Text className="text-white font-semibold text-base">{saveLabel}</Text>
-          </Pressable>
-          <Pressable
+            style={{ paddingVertical: 14, borderRadius: 16 }}
+          />
+          <Button
+            variant="outlined"
+            label={cancelLabel}
             onPress={onCancel}
-            className="py-3.5 rounded-2xl items-center bg-background-900 active:opacity-80"
-          >
-            <Text className="text-typography-700 font-medium text-base">
-              {cancelLabel}
-            </Text>
-          </Pressable>
+            style={{ paddingVertical: 14, borderRadius: 16 }}
+          />
         </View>
       </View>
-    </SheetShell>
+    </BottomSheet>
   );
 }

@@ -1,5 +1,7 @@
 import React from "react";
-import { Pressable, Text } from "react-native-css/components";
+import { View } from "react-native-css/components";
+import { Button } from "../../primitives/button";
+import { useForgeTheme } from "../../theme/context";
 
 interface DeleteButtonProps {
   label: string;
@@ -7,12 +9,15 @@ interface DeleteButtonProps {
 }
 
 export function DeleteButton({ label, onPress }: DeleteButtonProps) {
+  const { colors } = useForgeTheme();
   return (
-    <Pressable
-      onPress={onPress}
-      className="bg-background-error rounded-2xl p-4 mb-8 items-center border border-error-100"
-    >
-      <Text className="text-error-500 font-semibold text-sm">{label}</Text>
-    </Pressable>
+    <View className="mb-8">
+      <Button
+        variant="filled"
+        label={label}
+        onPress={onPress}
+        style={{ backgroundColor: colors.destructive, borderRadius: 16, padding: 16 }}
+      />
+    </View>
   );
 }

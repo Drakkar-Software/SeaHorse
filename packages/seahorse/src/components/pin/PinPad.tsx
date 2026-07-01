@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native-css/components";
+import { View, Text } from "react-native-css/components";
+import { Pressable } from "../../primitives/pressable";
 import { Delete, Fingerprint } from "lucide-react-native";
 
 // Re-export pure helpers so consumers can import them alongside the component.

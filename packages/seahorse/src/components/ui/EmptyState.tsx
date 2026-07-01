@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native-css/components";
+import { View, Text } from "react-native-css/components";
 import type { LucideIcon } from "lucide-react-native";
+import { Button } from "../../primitives/button";
 
 interface EmptyStateProps {
   icon: LucideIcon;
@@ -37,12 +38,14 @@ export function EmptyState({
         </Text>
       )}
       {actionLabel && onAction && (
-        <Pressable
-          onPress={onAction}
-          className="mt-6 bg-primary-500 px-6 py-3 rounded-full active:bg-primary-600"
-        >
-          <Text className="text-white font-semibold text-sm">{actionLabel}</Text>
-        </Pressable>
+        <View className="mt-6">
+          <Button
+            variant="filled"
+            label={actionLabel}
+            onPress={onAction}
+            style={{ paddingHorizontal: 24, paddingVertical: 12, borderRadius: 9999 }}
+          />
+        </View>
       )}
     </View>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native-css/components";
+import { Badge, BadgeText, BadgeIcon } from "../../primitives/badge";
 import { Clock, AlertCircle } from "lucide-react-native";
 import { differenceInDays, differenceInMonths, isPast, isToday } from "date-fns";
 
@@ -26,44 +26,34 @@ export function DeadlineChip({ date, labels = {} }: DeadlineChipProps) {
   const months = differenceInMonths(target, now);
 
   let label: string;
-  let bgClass: string;
-  let textClass: string;
+  let action: "error" | "warning" | "info" | "muted";
   let useAlert = false;
 
   if (isToday(target)) {
     label = todayLabel;
-    bgClass = "bg-background-error";
-    textClass = "text-error-600";
+    action = "error";
     useAlert = true;
   } else if (isPast(target)) {
     label = overdueLabel;
-    bgClass = "bg-background-error";
-    textClass = "text-error-600";
+    action = "error";
     useAlert = true;
   } else if (days <= 7) {
     label = `${days}${daysLabel}`;
-    bgClass = "bg-background-warning";
-    textClass = "text-warning-600";
+    action = "warning";
   } else if (days <= 30) {
     label = `${days}${daysLabel}`;
-    bgClass = "bg-background-info";
-    textClass = "text-info-600";
+    action = "info";
   } else {
     label = `${months} ${monthsLabel}`;
-    bgClass = "bg-background-muted";
-    textClass = "text-typography-500";
+    action = "muted";
   }
 
   return (
-    <View className={`flex-row items-center px-2 py-0.5 rounded-full gap-1 ${bgClass}`}>
-      {useAlert ? (
-        <AlertCircle size={11} className={textClass} />
-      ) : (
-        <Clock size={11} className={textClass} />
-      )}
-      <Text className={`text-xs font-medium ${textClass}`}>
+    <Badge action={action} size="sm" className="gap-1 rounded-full px-2 py-0.5">
+      <BadgeIcon as={useAlert ? AlertCircle : Clock} size={11} />
+      <BadgeText size="sm" className="normal-case font-medium">
         {label}
-      </Text>
-    </View>
+      </BadgeText>
+    </Badge>
   );
 }

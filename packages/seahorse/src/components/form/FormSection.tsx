@@ -1,6 +1,10 @@
-import React, { useRef, useState } from "react";
-import { View, Text, TextInput, Pressable } from "react-native-css/components";
-import { CheckCircle2, Circle, Calendar, Clock } from "lucide-react-native";
+import React, { useState } from "react";
+import { View, Text } from "react-native-css/components";
+import { Pressable } from "../../primitives/pressable";
+import { Input } from "../../primitives/input";
+import { Checkbox } from "../../primitives/checkbox";
+import { Card } from "../../primitives/card";
+import { Calendar, Clock } from "lucide-react-native";
 import { format, parseISO } from "date-fns";
 import { enUS } from "date-fns/locale";
 import type { Locale } from "date-fns";
@@ -19,9 +23,9 @@ export function SectionTitle({ children }: { children: string }) {
 /** Card wrapper for form sections */
 export function FormCard({ children }: { children: React.ReactNode }) {
   return (
-    <View className="bg-background-0 rounded-2xl p-4 mb-5 border border-outline-100">
+    <Card variant="elevated" className="rounded-2xl p-4 mb-5 border border-outline-100">
       {children}
-    </View>
+    </Card>
   );
 }
 
@@ -43,16 +47,10 @@ export function InputRow({
   multiline?: boolean;
   onBlur?: () => void;
 }) {
-  const inputRef = useRef<React.ElementRef<typeof TextInput>>(null);
   return (
-    <Pressable
-      onPress={() => inputRef.current?.focus()}
-      className="border-b border-outline-50 py-3"
-    >
+    <View className="border-b border-outline-50 py-3">
       <Text className="text-xs text-typography-400 mb-1 font-medium">{label}</Text>
-      <TextInput
-        ref={inputRef}
-        className="text-base text-typography-900"
+      <Input
         value={value}
         onChangeText={onChangeText}
         onBlur={onBlur}
@@ -60,9 +58,8 @@ export function InputRow({
         placeholderTextColor="rgb(212, 212, 212)"
         keyboardType={keyboardType}
         multiline={multiline}
-        textAlignVertical={multiline ? "top" : "center"}
       />
-    </Pressable>
+    </View>
   );
 }
 
@@ -198,11 +195,7 @@ export function ToggleRow({
       className="flex-row items-center justify-between py-3 border-b border-outline-50"
     >
       <Text className="text-base text-typography-700">{label}</Text>
-      {value ? (
-        <CheckCircle2 size={24} className="text-success-500" />
-      ) : (
-        <Circle size={24} className="text-outline-200" />
-      )}
+      <Checkbox value={value} onValueChange={() => onToggle()} />
     </Pressable>
   );
 }

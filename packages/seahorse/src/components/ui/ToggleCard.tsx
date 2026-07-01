@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native-css/components";
-import { useForgeTheme } from "../../theme/context";
+import { View, Text } from "react-native-css/components";
+import { Pressable } from "../../primitives/pressable";
+import { Switch } from "../../primitives/switch";
 
 interface ToggleCardProps {
   icon: React.ReactNode;
@@ -12,7 +13,6 @@ interface ToggleCardProps {
 }
 
 export function ToggleCard({ icon, title, subtitle, enabled, onToggle, disabled = false }: ToggleCardProps) {
-  const { colors } = useForgeTheme();
   return (
     <Pressable
       onPress={!disabled ? onToggle : undefined}
@@ -27,15 +27,7 @@ export function ToggleCard({ icon, title, subtitle, enabled, onToggle, disabled 
           <Text className="text-xs text-typography-400 mt-0.5">{subtitle}</Text>
         )}
       </View>
-      <View
-        className="w-12 h-7 rounded-full justify-center px-0.5"
-        style={{ backgroundColor: enabled ? colors.primary : "rgb(211, 211, 211)" }}
-      >
-        <View
-          className="w-6 h-6 rounded-full bg-white"
-          style={{ alignSelf: enabled ? "flex-end" : "flex-start" }}
-        />
-      </View>
+      <Switch value={enabled} onValueChange={() => onToggle()} disabled={disabled} />
     </Pressable>
   );
 }

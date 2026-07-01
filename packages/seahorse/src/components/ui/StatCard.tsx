@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native-css/components";
+import { View, Text } from "react-native-css/components";
+import { Pressable } from "../../primitives/pressable";
 
 interface StatCardProps {
   icon: React.ComponentType<{ size?: number; color?: string; className?: string }>;

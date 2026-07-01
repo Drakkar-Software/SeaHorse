@@ -1,5 +1,6 @@
 import React from "react";
-import { ScrollView, Pressable } from "react-native-css/components";
+import { ScrollView } from "react-native-css/components";
+import { Pressable } from "../../primitives/pressable";
 import { StatusBadge } from "./StatusBadge";
 
 interface StatusOption {

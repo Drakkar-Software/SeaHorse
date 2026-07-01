@@ -2,6 +2,52 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.12.0] — 2026-07-01
+
+### Breaking
+
+- **`Sheet` export removed — replaced by the `BottomSheet` primitive.** The internal `SheetShell`
+  wrapper (`components/sheets/SheetShell.tsx`) is deleted; its `@expo/ui/community/bottom-sheet`
+  implementation moves to `primitives/bottom-sheet` and is exported as `BottomSheet` from the
+  `/primitives` subpath (same `visible`/`onDismiss`/`children`/`backgroundColor` API). Apps
+  importing `Sheet` from `./components` must switch to `import { BottomSheet } from
+  "@drakkar.software/seahorse/primitives"`. `ConfirmSheet`, `RenameSheet`, `DatePickerModal`, and
+  `TimePickerModal` now build on `BottomSheet` internally — no change needed for consumers of those.
+- **Buttons across the widget layer now render the native `@expo/ui` `Button` primitive** instead
+  of a NativeWind-styled `Pressable`+`Text`: `BackButton`, `DeleteButton`, `SaveHeaderButton`,
+  `EmptyState`, `FeatureCard`, `ConfirmSheet`, `RenameSheet`, `DatePickerModal`, `TimePickerModal`,
+  `OnboardingFlow`. Visual chrome (shape, press feedback, font rendering) is now platform-native
+  (SwiftUI / Jetpack Compose / RN-on-web) — `className` no longer has any effect on these buttons.
+  Brand color is driven by `ForgeTheme`'s `colors.primary` / `colors.destructive` (a JS value read
+  via `useForgeTheme()`), **not** the Tailwind `primary-*`/`error-*` classes — apps that only
+  customized the Tailwind preset (and never passed a `theme` to `ForgeThemeProvider`) will see these
+  buttons render in the theme's default blue/red instead of their custom palette.
+- **`ToggleCard` and `FormSection`'s `ToggleRow` now render the native `@expo/ui` `Switch` /
+  `Checkbox`** instead of a hand-rolled pill toggle / check-circle icon. Appearance is now the
+  platform's native control — there is no styling knob for it.
+- **`SearchBar`, `RenameSheet`, and `FormSection`'s `InputRow` now render the native `@expo/ui`-backed
+  `Input` primitive** instead of a NativeWind `TextInput`. `className` on the input itself no longer
+  applies — styling goes through `style` (box: background/border/radius/padding) and `textStyle`
+  (font/color). `InputRow` no longer supports "tap anywhere in the row to focus the input" — tap the
+  field directly.
+
+### Changed
+
+- **`IconCard`, `StatCard`, `FeatureCard`, `ToggleCard`, and `FormSection`'s `FormCard`** now build
+  on the `Card` primitive instead of a repeated inline `bg-background-0 rounded-2xl border` wrapper.
+  No visual change (className-based, drop-in).
+- **`DeadlineChip`** now builds on the `Badge` primitive (`Badge`/`BadgeText`/`BadgeIcon`) instead of
+  hand-rolled pill styling. No visual change for the error/warning/info states; the long-term
+  ("N mo") state's muted gray shifts slightly to match `Badge`'s `muted` action token.
+  `StatusBadge` is intentionally **not** migrated — its public API takes an arbitrary `color` string
+  that `Badge`'s fixed `action` enum can't represent.
+- Touchable rows, cards, and chips now route through the shared `Pressable` primitive (adds
+  consistent `focus-visible` + `disabled` handling) instead of importing `Pressable` directly from
+  `react-native-css/components`: `IconCard`, `StatCard`, `ToggleCard`, `TimelineItem`,
+  `CollapsibleSection`, `RatingStars`, `StatusSelector`, `FilterTabs`, `FormSection`'s row/chip
+  components, `FAB`, `PinPad`, `PinSetup`, and the sheet nav/day/hour/minute controls. No visual or
+  behavioral change beyond the added focus/disabled affordance.
+
 ## [0.11.0] — 2026-07-01
 
 ### Breaking

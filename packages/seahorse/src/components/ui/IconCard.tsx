@@ -1,5 +1,7 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native-css/components";
+import { View, Text } from "react-native-css/components";
+import { Card } from "../../primitives/card";
+import { Pressable } from "../../primitives/pressable";
 
 interface IconCardProps {
   icon: React.ReactNode;
@@ -42,8 +44,8 @@ export function IconCard({ icon, title, subtitle, right, onPress, children, clas
   }
 
   return (
-    <View className={`bg-background-0 rounded-2xl p-4 mb-3 border border-outline-100 ${className ?? ""}`}>
+    <Card variant="elevated" className={`rounded-2xl p-4 mb-3 border border-outline-100 ${className ?? ""}`}>
       {content}
-    </View>
+    </Card>
   );
 }

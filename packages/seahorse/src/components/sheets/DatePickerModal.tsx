@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { View, Text, Pressable } from "react-native-css/components";
+import { View, Text } from "react-native-css/components";
+import { Pressable } from "../../primitives/pressable";
+import { Button } from "../../primitives/button";
 import { ChevronLeft, ChevronRight } from "lucide-react-native";
 import {
   format,
@@ -17,7 +19,7 @@ import {
 } from "date-fns";
 import { enUS } from "date-fns/locale";
 import type { Locale } from "date-fns";
-import { SheetShell } from "./SheetShell";
+import { BottomSheet } from "../../primitives/bottom-sheet";
 
 interface DatePickerModalProps {
   visible: boolean;
@@ -89,7 +91,7 @@ export function DatePickerModal({
   };
 
   return (
-    <SheetShell visible={visible} onDismiss={onClose}>
+    <BottomSheet visible={visible} onDismiss={onClose}>
       <View className="bg-background-0 rounded-t-3xl px-5 pt-5 pb-8">
         {/* Month navigation */}
         <View className="flex-row items-center justify-between mb-3">
@@ -162,22 +164,24 @@ export function DatePickerModal({
 
         {/* Footer buttons */}
         <View className="flex-row gap-3 mt-4">
-          <Pressable
-            onPress={handleToday}
-            className="flex-1 py-3 rounded-2xl items-center bg-primary-500 active:opacity-80"
-          >
-            <Text className="text-white font-semibold text-sm">{todayLabel}</Text>
-          </Pressable>
-          <Pressable
-            onPress={handleClear}
-            className="flex-1 py-3 rounded-2xl items-center bg-background-900 active:opacity-80"
-          >
-            <Text className="text-typography-700 font-medium text-sm">
-              {clearLabel}
-            </Text>
-          </Pressable>
+          <View className="flex-1">
+            <Button
+              variant="filled"
+              label={todayLabel}
+              onPress={handleToday}
+              style={{ paddingVertical: 12, borderRadius: 16 }}
+            />
+          </View>
+          <View className="flex-1">
+            <Button
+              variant="outlined"
+              label={clearLabel}
+              onPress={handleClear}
+              style={{ paddingVertical: 12, borderRadius: 16 }}
+            />
+          </View>
         </View>
       </View>
-    </SheetShell>
+    </BottomSheet>
   );
 }

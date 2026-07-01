@@ -1,7 +1,9 @@
 'use client'
 import React, { useRef, useState } from 'react'
 import { ScrollView, useWindowDimensions } from 'react-native'
-import { View, Text, Pressable } from 'react-native-css/components'
+import { View } from 'react-native-css/components'
+import { Button } from '../../primitives/button'
+import { Host } from '../../primitives/host'
 import { cn } from '../../utils/cn'
 import { OnboardingDots } from './OnboardingDots'
 
@@ -75,20 +77,25 @@ export function OnboardingFlow({
         <OnboardingDots count={count} activeIndex={activeIndex} className="py-1" />
         <View className="flex-row items-center justify-between">
           {onSkip && !isLast ? (
-            <Pressable onPress={onSkip} className="px-5 h-10 items-center justify-center">
-              <Text className="text-typography-400 text-base">{skipButtonText}</Text>
-            </Pressable>
+            <Host seedColor="rgb(163, 163, 163)">
+              <Button
+                variant="text"
+                label={skipButtonText}
+                onPress={onSkip}
+                style={{ paddingHorizontal: 20, height: 40 }}
+              />
+            </Host>
           ) : (
             <View className="w-20" />
           )}
-          <Pressable
-            onPress={handleNext}
-            className="min-w-[120px] px-5 h-10 rounded-lg bg-primary-500 items-center justify-center"
-          >
-            <Text className="text-typography-0 font-semibold text-base">
-              {isLast ? completeButtonText : nextButtonText}
-            </Text>
-          </Pressable>
+          <View style={{ minWidth: 120 }}>
+            <Button
+              variant="filled"
+              label={isLast ? completeButtonText : nextButtonText}
+              onPress={handleNext}
+              style={{ paddingHorizontal: 20, height: 40, borderRadius: 8 }}
+            />
+          </View>
         </View>
       </View>
     </View>
