@@ -30,6 +30,17 @@ export * from './spinner'
 // Lists
 export * from './flash-list'
 
+// Native (@expo/ui) primitives
+export * from './host'
+export * from './row'
+export * from './column'
+export * from './scrollview'
+export * from './spacer'
+export * from './collapsible'
+export * from './picker'
+export * from './list'
+export * from './fieldgroup'
+
 // Feedback & display
 export * from './modal'
 export * from './alert-dialog'

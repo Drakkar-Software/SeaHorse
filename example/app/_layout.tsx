@@ -15,6 +15,7 @@ export default function RootLayout() {
             <Stack.Screen name="index" options={{ title: "SeaHorse Demo" }} />
             <Stack.Screen name="components" options={{ title: "Components" }} />
             <Stack.Screen name="forms" options={{ title: "Form Elements" }} />
+            <Stack.Screen name="native" options={{ title: "Native (@expo/ui)" }} />
             <Stack.Screen name="utils" options={{ title: "Utilities" }} />
           </Stack>
         </BottomSheetModalProvider>

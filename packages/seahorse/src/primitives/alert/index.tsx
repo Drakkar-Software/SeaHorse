@@ -1,8 +1,9 @@
 'use client'
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useMemo } from 'react'
+import { Platform } from 'react-native'
 import { Text, View } from 'react-native-css/components'
+import { styled } from 'react-native-css'
 import { cn } from '../../utils/cn'
-import { Icon as UIIcon } from '../icon'
 
 // ---------------------------------------------------------------------------
 // Style maps
@@ -50,6 +51,15 @@ const iconSizeClasses: Record<string, string> = {
   'md': 'h-[18px] w-[18px]',
   'lg': 'h-5 w-5',
   'xl': 'h-6 w-6',
+}
+
+const iconNumericSizes: Record<string, number> = {
+  '2xs': 12,
+  'xs': 14,
+  'sm': 16,
+  'md': 18,
+  'lg': 20,
+  'xl': 24,
 }
 
 // ---------------------------------------------------------------------------
@@ -168,16 +178,32 @@ type AlertIconProps = {
 }
 
 const AlertIcon = React.forwardRef<unknown, AlertIconProps>(
-  ({ className, size = 'md', ...props }, ref) => {
+  ({ as: IconComponent, className, size = 'md', ...props }, ref) => {
     const { action } = useContext(AlertContext)
 
+    // On native, NativeWind text-* classes don't propagate to SVG `color` prop.
+    // Use styled() with nativeStyleToProp to bridge CSS color → Lucide color prop.
+    const NativeAwareIcon = useMemo(() => {
+      if (!IconComponent) return null
+      if (Platform.OS === 'web') return IconComponent as React.ComponentType<any>
+      return styled(IconComponent as React.ComponentType<any>, {
+        className: { target: false, nativeStyleToProp: { color: 'color' } },
+      })
+    }, [IconComponent])
+
+    if (!NativeAwareIcon) return null
+
+    const numericSize = typeof size === 'number' ? size : iconNumericSizes[size] ?? 18
+    const sizeClass = typeof size === 'string' ? iconSizeClasses[size] : undefined
+
     return (
-      <UIIcon
+      <NativeAwareIcon
         ref={ref}
-        size={size}
+        size={numericSize}
         className={cn(
           'fill-none',
           actionTextColor[action],
+          sizeClass,
           className,
         )}
         {...props}

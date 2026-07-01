@@ -1,8 +1,7 @@
 'use client'
 import React, { useRef, useState } from 'react'
 import { ScrollView, useWindowDimensions } from 'react-native'
-import { View } from 'react-native-css/components'
-import { Button, ButtonText } from '../../primitives'
+import { View, Text, Pressable } from 'react-native-css/components'
 import { cn } from '../../utils/cn'
 import { OnboardingDots } from './OnboardingDots'
 
@@ -76,21 +75,20 @@ export function OnboardingFlow({
         <OnboardingDots count={count} activeIndex={activeIndex} className="py-1" />
         <View className="flex-row items-center justify-between">
           {onSkip && !isLast ? (
-            <Button variant="ghost" size="md" onPress={onSkip} action="default">
-              <ButtonText className="text-typography-400">{skipButtonText}</ButtonText>
-            </Button>
+            <Pressable onPress={onSkip} className="px-5 h-10 items-center justify-center">
+              <Text className="text-typography-400 text-base">{skipButtonText}</Text>
+            </Pressable>
           ) : (
             <View className="w-20" />
           )}
-          <Button
-            variant="solid"
-            size="md"
+          <Pressable
             onPress={handleNext}
-            action="primary"
-            className="min-w-[120px]"
+            className="min-w-[120px] px-5 h-10 rounded-lg bg-primary-500 items-center justify-center"
           >
-            <ButtonText>{isLast ? completeButtonText : nextButtonText}</ButtonText>
-          </Button>
+            <Text className="text-typography-0 font-semibold text-base">
+              {isLast ? completeButtonText : nextButtonText}
+            </Text>
+          </Pressable>
         </View>
       </View>
     </View>

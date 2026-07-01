@@ -14,6 +14,11 @@ const sections = [
     route: "/forms" as const,
   },
   {
+    title: "Native (@expo/ui)",
+    description: "Button, Switch, Checkbox, Slider, TextInput, Picker, List…",
+    route: "/native" as const,
+  },
+  {
     title: "Utilities",
     description: "safeFormat, secure-store, crypto, app-lock, OTA update…",
     route: "/utils" as const,

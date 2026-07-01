@@ -1,34 +1,14 @@
 'use client'
 import React from 'react'
-import { Switch as RNSwitch } from 'react-native-css/components'
-import { cn } from '../../utils/cn'
+import { Switch as ExpoSwitch } from '@expo/ui'
+import type { SwitchProps } from '@expo/ui'
+import { useHostWrap } from '../_host/ForgeHost'
 
-const sizeVariants = {
-  sm: 'scale-75',
-  md: '',
-  lg: 'scale-125',
-} as const
-
-type SwitchProps = React.ComponentProps<typeof RNSwitch> & {
-  size?: keyof typeof sizeVariants
+function Switch(props: SwitchProps) {
+  return useHostWrap(<ExpoSwitch {...props} />)
 }
 
-const Switch = React.forwardRef<
-  React.ElementRef<typeof RNSwitch>,
-  SwitchProps
->(({ className, size = 'md', ...props }, ref) => {
-  return (
-    <RNSwitch
-      ref={ref}
-      {...props}
-      className={cn(
-        'data-[focus=true]:outline-0 data-[focus=true]:ring-2 data-[focus=true]:ring-indicator-primary web:cursor-pointer disabled:cursor-not-allowed data-[disabled=true]:opacity-40 data-[invalid=true]:border-error-700 data-[invalid=true]:rounded-xl data-[invalid=true]:border-2',
-        sizeVariants[size],
-        className,
-      )}
-    />
-  )
-})
-
 Switch.displayName = 'Switch'
+
 export { Switch }
+export type { SwitchProps }

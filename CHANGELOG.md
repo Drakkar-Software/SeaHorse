@@ -2,6 +2,37 @@
 
 All notable changes to `@drakkar.software/seahorse` will be documented here.
 
+## [0.11.0] — 2026-07-01
+
+### Breaking
+
+- **`button`, `text`, `switch`, `checkbox`, `slider`, `icon`, `input` primitives reimplemented on `@expo/ui` universal components.**
+  Same treatment as the `Sheet`/`SegmentedControl` `@expo/ui` migrations, extended to the core
+  primitives layer: `Button`, `Text`, `Switch`, `Checkbox`, `Slider`, `Icon`, and `input` (now
+  `TextInput`, with `Input` kept as an alias) render native SwiftUI (iOS) / Jetpack Compose
+  (Android) / RN (web) controls instead of NativeWind `className`-styled views. The compound
+  sub-components (`ButtonText`, `ButtonIcon`, `ButtonGroup`, `InputField`, `InputSlot`,
+  `InputIcon`, `CheckboxIndicator`, `CheckboxLabel`, `CheckboxIcon`, `CheckboxGroup`,
+  `SliderTrack`, `SliderFilledTrack`, `SliderThumb`) are removed — these are now flat components
+  (`label`/`variant`, `value`/`onValueChange`, `textStyle`, …) with no `className` prop.
+  `Icon` moves from Lucide components to SF Symbols (iOS) / `@expo/material-symbols` XML
+  drawables (Android) — pass `name` as a plain `{ ios, android }` object or via `Icon.select`.
+  Requires the optional `@expo/ui` peer (already declared) for any of these primitives to import
+  successfully — apps that don't install `@expo/ui` cannot use this primitives layer.
+
+### Added
+
+- **New native primitives**: `Host`, `Row`, `Column`, `ScrollView`, `Spacer`, `Collapsible`,
+  `Picker` (+ `Picker.Item`), `List`/`ListItem` (+ `Leading`/`Trailing`/`Supporting`), `FieldGroup`
+  (+ `Section`/`SectionHeader`/`SectionFooter`) — thin wrappers over the corresponding `@expo/ui`
+  universal components, all exported from the `/primitives` subpath.
+- Every native primitive self-hosts in a `Host` seeded with the Forge theme's `colors.primary`
+  (SwiftUI tint / Material3 palette / web CSS vars) when rendered without an ancestor `Host`; a
+  `Row`/`Column`/`List`/etc. wrapping several of them collapses to a single native bridge instead
+  of one per leaf.
+- `@expo/material-symbols` added as an optional peer dependency (Android icon assets for `Icon`).
+- New example screen (`/native`) demonstrating every native primitive.
+
 ## [0.10.1] — 2026-07-01
 
 ### Internal
